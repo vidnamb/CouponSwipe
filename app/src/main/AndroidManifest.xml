@@ -40,6 +40,10 @@
             android:name=".ui.ViewDealActivity"
             android:label="@string/title_activity_view_deal" >
         </activity>
+        <activity
+            android:name=".ui.Edit_profile"
+            android:label="@string/title_activity_edit_profile" >
+        </activity>
     </application>
 
 </manifest>

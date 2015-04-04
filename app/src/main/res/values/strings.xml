@@ -20,5 +20,11 @@
     <string name="enter_last_name">Last name</string>
     <string name="enter_phone">Enter phone number</string>
     <string name="resgister_button">Submit</string>
+    <string name="user_details">Profile</string>
+    <string name="edit_profile_button">Edit</string>
+    <string name="logout_button">Logout</string>
+    <string name="title_activity_edit_profile">Edit_profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="update_profile_button">Update</string>
 
 </resources>
