@@ -1,9 +1,11 @@
 package couponswipe.cmu.edu.couponswipe.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import couponswipe.cmu.edu.couponswipe.R;
 
@@ -36,5 +38,16 @@ public class LoginActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void login(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void signup(View view){
+            Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
     }
 }

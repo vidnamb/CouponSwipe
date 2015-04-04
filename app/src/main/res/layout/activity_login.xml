@@ -31,9 +31,10 @@
 
 
     <Button android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button"
+        android:onClick="login"
         android:layout_marginTop="20dp"></Button>
 
 
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_up_button"
+        android:onClick="signup"
         android:layout_marginTop="20dp"></Button>
 
 

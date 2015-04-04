@@ -23,11 +23,12 @@
             android:id="@+id/editProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/edit_profile_button"></Button>
+            android:text="@string/edit_profile_button"
+            android:onClick="editProfile"></Button>
 
 
         <TextView
-            android:id="@+id/"
+            android:id="@+id/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -43,7 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="@string/logout_button"></Button>
+            android:text="@string/logout_button"
+            android:onClick="logout"></Button>
 
     </LinearLayout>
 
