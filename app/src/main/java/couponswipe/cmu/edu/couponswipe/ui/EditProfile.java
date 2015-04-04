@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import couponswipe.cmu.edu.couponswipe.R;
 
-public class Edit_profile extends Activity {
+public class EditProfile extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -41,7 +41,7 @@
             android:label="@string/title_activity_view_deal" >
         </activity>
         <activity
-            android:name=".ui.Edit_profile"
+            android:name=".ui.EditProfile"
             android:label="@string/title_activity_edit_profile" >
         </activity>
     </application>
