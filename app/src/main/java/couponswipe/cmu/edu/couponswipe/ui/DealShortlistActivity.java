@@ -1,13 +1,14 @@
 package couponswipe.cmu.edu.couponswipe.ui;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import couponswipe.cmu.edu.couponswipe.R;
 
-public class DealShortlistActivity extends Activity {
+public class DealShortlistActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
