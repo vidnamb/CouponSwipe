@@ -33,7 +33,7 @@
         android:max="@integer/max_radius" />
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dealCategoriesListView"
         android:layout_gravity="center_horizontal" />
