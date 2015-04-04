@@ -20,5 +20,7 @@
     <string name="enter_last_name">Last name</string>
     <string name="enter_phone">Enter phone number</string>
     <string name="resgister_button">Submit</string>
+    <string name="discovery_preferences">Discovery Preferences</string>
+    <string name="show_me_deals_within">Show Me Deals Within</string>
 
 </resources>

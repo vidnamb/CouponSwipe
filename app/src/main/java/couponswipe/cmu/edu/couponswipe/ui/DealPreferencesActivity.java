@@ -9,6 +9,18 @@ import couponswipe.cmu.edu.couponswipe.R;
 
 public class DealPreferencesActivity extends Activity {
 
+    String[] dealCategories = {
+            "Food & Drink",
+            "Things To Do",
+            "Beauty & Spas",
+            "Health & Fitness",
+            "Automotive",
+            "Electronics",
+            "Home & Garden",
+            "Travel",
+            "Gift Ideas"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
