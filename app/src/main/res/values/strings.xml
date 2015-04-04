@@ -10,5 +10,15 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_deal_preferences">DealPreferencesActivity</string>
     <string name="title_activity_view_deal">ViewDealActivity</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_email">Enter email</string>
+    <string name="login_button">Login</string>
+    <string name="sign_up_button">New User? Signup here</string>
+    <string name="sign_up_text">Sign Up!</string>
+    <string name="login_text">Log in!</string>
+    <string name="enter_first_name">First name</string>
+    <string name="enter_last_name">Last name</string>
+    <string name="enter_phone">Enter phone number</string>
+    <string name="resgister_button">Submit</string>
 
 </resources>
