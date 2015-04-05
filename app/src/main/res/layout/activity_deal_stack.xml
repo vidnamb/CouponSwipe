@@ -146,6 +146,15 @@
                 android:layout_gravity="bottom" />
         </LinearLayout>
 
+        <Button
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/PreferencesButton"
+            android:layout_gravity="center_horizontal"
+            android:onClick="openPreferences"
+            android:background="@drawable/preferences"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
 </RelativeLayout>

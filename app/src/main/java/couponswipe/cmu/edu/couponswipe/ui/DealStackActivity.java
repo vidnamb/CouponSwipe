@@ -119,4 +119,9 @@ public class DealStackActivity extends Activity {
         startActivity(intent);
     }
 
+    public void openUserPreferences(View view){
+        Intent intent = new Intent(this, DealPreferencesActivity.class);
+        startActivity(intent);
+    }
+
 }
