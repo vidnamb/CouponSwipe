@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 
 
     public void login(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, DealStackActivity.class);
         startActivity(intent);
     }
 
