@@ -29,5 +29,16 @@
     <string name="discovery_preferences">Discovery Preferences</string>
     <string name="show_me_deals_within">Show Me Deals Within</string>
     <string name="no_deals_in_shortlist">No Deals in Shortlist.\n\nShortlist deals on the Deal Stack to view them here.</string>
-
+    <string name="demo_coupon_title_1">Half Off Easter Treats from Cherry Moon Farms</string>
+    <string name="demo_coupon_store_1">Cherry Moon Farms</string>
+    <string name="demo_coupon_distance_1">12 miles away</string>
+    <string name="demo_coupon_price_1">$15</string>
+    <string name="demo_coupon_title_2">Easter or Springtime Combo Pack from Omaha Steaks (Up to 68% Off)</string>
+    <string name="demo_coupon_store_2">Omaha Steaks</string>
+    <string name="demo_coupon_distance_2">6 miles away</string>
+    <string name="demo_coupon_price_2">$49.99</string>
+    <string name="demo_coupon_title_3">Luxurious Omni near Union Square</string>
+    <string name="demo_coupon_store_3">Omni San Francisco Hotel</string>
+    <string name="demo_coupon_distance_3">32 miles away</string>
+    <string name="demo_coupon_price_3">$159/night</string>
 </resources>
