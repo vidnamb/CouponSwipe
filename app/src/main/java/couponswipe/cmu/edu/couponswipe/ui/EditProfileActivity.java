@@ -9,7 +9,7 @@ import android.view.View;
 
 import couponswipe.cmu.edu.couponswipe.R;
 
-public class EditProfile extends Activity {
+public class EditProfileActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,5 @@ public class EditProfile extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void editProfile(View view){
-        Intent intent = new Intent(this, EditProfile.class);
-        startActivity(intent);
-    }
 
-    public void logout(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 }
