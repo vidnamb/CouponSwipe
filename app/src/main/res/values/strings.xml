@@ -29,5 +29,9 @@
     <string name="discovery_preferences">Discovery Preferences</string>
     <string name="show_me_deals_within">Show Me Deals Within</string>
     <string name="no_deals_in_shortlist">No Deals in Shortlist.\n\nShortlist deals on the Deal Stack to view them here.</string>
+    <string name="deal_icon">Deal Icon</string>
+    <string name="delete">Del</string>
+    <string name="view">View</string>
+    <string name="buy">Buy</string>
 
 </resources>

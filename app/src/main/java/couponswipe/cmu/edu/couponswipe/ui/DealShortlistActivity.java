@@ -2,18 +2,38 @@ package couponswipe.cmu.edu.couponswipe.ui;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import couponswipe.cmu.edu.couponswipe.R;
+import couponswipe.cmu.edu.couponswipe.adapter.ShortlistDealAdapter;
+import couponswipe.cmu.edu.couponswipe.model.Deal;
 
 public class DealShortlistActivity extends ListActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_shortlist);
+
+        ArrayList<Deal> shortlistedDealsList = new ArrayList<Deal>();
+        shortlistedDealsList.add(new Deal("1"));
+        shortlistedDealsList.add(new Deal("2"));
+        shortlistedDealsList.add(new Deal("3"));
+
+        Deal[] shortlistedDeals = shortlistedDealsList.toArray(new Deal[shortlistedDealsList.size()]);
+
+        ShortlistDealAdapter adapter = new ShortlistDealAdapter(this, shortlistedDeals);
+        setListAdapter(adapter);
     }
 
 
