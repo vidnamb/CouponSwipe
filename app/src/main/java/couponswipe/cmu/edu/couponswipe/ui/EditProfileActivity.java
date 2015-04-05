@@ -40,5 +40,10 @@ public class EditProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void update(View view){
+        Intent intent = new Intent(this, UserProfileActivity.class);
+        startActivity(intent);
+    }
+
 
 }
