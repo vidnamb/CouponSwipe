@@ -41,4 +41,9 @@
     <string name="demo_coupon_store_3">Omni San Francisco Hotel</string>
     <string name="demo_coupon_distance_3">32 miles away</string>
     <string name="demo_coupon_price_3">$159/night</string>
+    <string name="deal_icon">Deal Icon</string>
+    <string name="delete">Del</string>
+    <string name="view">View</string>
+    <string name="buy">Buy</string>
+
 </resources>
