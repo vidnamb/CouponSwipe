@@ -3,9 +3,11 @@ package couponswipe.cmu.edu.couponswipe.ui;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -57,5 +59,11 @@ public class DealShortlistActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void viewDeal(View view)
+    {
+        Intent intent = new Intent(this, ViewDealActivity.class);
+        startActivity(intent);
     }
 }
