@@ -1,82 +1,82 @@
 <resources>
 
-    <style name="Theme.Ribbit" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionBarItemBackground">@drawable/selectable_background_ribbit</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.Ribbit</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Ribbit</item>
-        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Ribbit</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.Ribbit</item>
-        <item name="android:actionBarStyle">@style/ActionBar.Solid.Ribbit</item>
-        <item name="android:actionModeBackground">@drawable/cab_background_top_ribbit</item>
-        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_ribbit</item>
-        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Ribbit</item>
+    <style name="Theme.CouponSwipe" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_couponswipe</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.CouponSwipe</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.CouponSwipe</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.CouponSwipe</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.CouponSwipe</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.CouponSwipe</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_couponswipe</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_couponswipe</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.CouponSwipe</item>
         <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
-        <item name="android:actionOverflowButtonStyle">@style/Theme.Ribbit.Overflow</item>
-        <item name="android:listViewStyle">@style/Theme.Ribbit.LightPurpleBackground</item>
-        <item name="android:gridViewStyle">@style/Theme.Ribbit.LightPurpleBackground.GridView</item>
+        <item name="android:actionOverflowButtonStyle">@style/Theme.CouponSwipe.Overflow</item>
+        <item name="android:listViewStyle">@style/Theme.CouponSwipe.LightPurpleBackground</item>
+        <item name="android:gridViewStyle">@style/Theme.CouponSwipe.LightPurpleBackground.GridView</item>
     </style>
 
-    <style name="Theme.Ribbit.LightPurpleBackground">
+    <style name="Theme.CouponSwipe.LightPurpleBackground">
         <item name="android:background">@color/light_purple_background</item>
         <item name="android:divider">@null</item>
     </style>
 
-    <style name="Theme.Ribbit.LightPurpleBackground.GridView">
+    <style name="Theme.CouponSwipe.LightPurpleBackground.GridView">
         <item name="android:padding">@dimen/user_grid_spacing</item>
     </style>
 
-    <style name="Theme.Ribbit.Overflow" parent="@android:style/Widget.ActionButton.Overflow">
+    <style name="Theme.CouponSwipe.Overflow" parent="@android:style/Widget.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_menu_overflow</item>
     </style>
 
-    <style name="ActionBar.Solid.Ribbit" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
-        <item name="android:background">@drawable/ab_solid_ribbit</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_ribbit</item>
-        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_ribbit</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.Ribbit</item>
-        <item name="android:titleTextStyle">@style/ActionBar.Solid.Ribbit.TitleTextStyle</item>
+    <style name="ActionBar.Solid.CouponSwipe" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid_couponswipe</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_couponswipe</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_couponswipe</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.CouponSwipe</item>
+        <item name="android:titleTextStyle">@style/ActionBar.Solid.CouponSwipe.TitleTextStyle</item>
     </style>
 
-    <style name="ActionBar.Solid.Ribbit.TitleTextStyle"
+    <style name="ActionBar.Solid.CouponSwipe.TitleTextStyle"
         parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/text_color</item>
     </style>
 
-    <style name="ActionBar.Transparent.Ribbit" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@drawable/ab_transparent_ribbit</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.Ribbit</item>
+    <style name="ActionBar.Transparent.CouponSwipe" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_couponswipe</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.CouponSwipe</item>
     </style>
 
-    <style name="PopupMenu.Ribbit" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ribbit</item>
+    <style name="PopupMenu.CouponSwipe" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_couponswipe</item>
     </style>
 
-    <style name="DropDownListView.Ribbit" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
-        <item name="android:listSelector">@drawable/selectable_background_ribbit</item>
+    <style name="DropDownListView.CouponSwipe" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_couponswipe</item>
     </style>
 
-    <style name="ActionBarTabStyle.Ribbit" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
-        <item name="android:background">@drawable/tab_indicator_ab_ribbit</item>
+    <style name="ActionBarTabStyle.CouponSwipe" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_couponswipe</item>
     </style>
 
-    <style name="DropDownNav.Ribbit" parent="@android:style/Widget.Holo.Light.Spinner">
-        <item name="android:background">@drawable/spinner_background_ab_ribbit</item>
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ribbit</item>
-        <item name="android:dropDownSelector">@drawable/selectable_background_ribbit</item>
+    <style name="DropDownNav.CouponSwipe" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_couponswipe</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_couponswipe</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_couponswipe</item>
     </style>
 
-    <style name="ProgressBar.Ribbit" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
-        <item name="android:progressDrawable">@drawable/progress_horizontal_ribbit</item>
+    <style name="ProgressBar.CouponSwipe" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_couponswipe</item>
     </style>
 
-    <style name="ActionButton.CloseMode.Ribbit" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
-        <item name="android:background">@drawable/btn_cab_done_ribbit</item>
+    <style name="ActionButton.CloseMode.CouponSwipe" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_couponswipe</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Ribbit.Widget" parent="@android:style/Theme.Holo">
-        <item name="android:popupMenuStyle">@style/PopupMenu.Ribbit</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Ribbit</item>
+    <style name="Theme.CouponSwipe.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.CouponSwipe</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.CouponSwipe</item>
     </style>
 
     <style name="AuthBackground">
