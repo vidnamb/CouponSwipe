@@ -1,0 +1,42 @@
+package couponswipe.cmu.edu.couponswipe.dao;
+
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import couponswipe.cmu.edu.couponswipe.database.DatabaseHandler;
+import couponswipe.cmu.edu.couponswipe.model.User;
+
+/**
+ * Created by sparshith on 11/4/15.
+ */
+public class UserDAO {
+    private SQLiteDatabase database;
+    private DatabaseHandler dbHandler;
+
+    public UserDAO(Context context) {
+        dbHandler = new DatabaseHandler(context);
+    }
+
+    public void open() throws SQLException {
+        database = dbHandler.getWritableDatabase();
+    }
+
+    public void close() {
+        dbHandler.close();
+    }
+
+    public void addUser(User user) {
+
+    }
+
+    public void deleteUser(User user) {
+
+    }
+
+    public void updateUser(User user) {
+
+    }
+
+}
