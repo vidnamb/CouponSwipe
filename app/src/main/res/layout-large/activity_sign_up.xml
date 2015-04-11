@@ -11,17 +11,23 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        style="@style/AuthTitle" />
+        style="@style/AuthTitle"
+        android:layout_marginTop="180dp" />
 
     <LinearLayout
         android:id="@+id/loginLinearLayout"
         style="@style/AuthFieldContainer"
+        android:layout_width="400dp"
+        android:layout_centerHorizontal="true"
         >
 
         <EditText android:id="@+id/firstNameEditText"
             android:hint="@string/enter_first_name"
             android:inputType="text"
-            style="@style/AuthEditText" />
+            style="@style/AuthEditText">
+
+            <requestFocus />
+        </EditText>
 
         <EditText android:id="@+id/lastNameEditText"
             android:hint="@string/enter_last_name"
@@ -64,8 +70,10 @@
         android:text="@string/register_button"
         android:onClick="signup"
         android:layout_below="@id/loginLinearLayout"
+        android:layout_alignLeft="@id/loginLinearLayout"
         android:layout_toLeftOf="@id/buttonDivider"
         android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
         />
 
     <Button android:id="@+id/cancelButton"
@@ -73,8 +81,10 @@
         android:text="@string/cancel_button"
         android:onClick="cancel"
         android:layout_below="@id/loginLinearLayout"
+        android:layout_alignRight="@id/loginLinearLayout"
         android:layout_toRightOf="@id/buttonDivider"
         android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         />
 
 

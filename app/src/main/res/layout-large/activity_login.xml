@@ -11,19 +11,22 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        style="@style/AuthTitle" />
+        style="@style/AuthTitle"
+        android:layout_marginTop="180dp" />
 
     <LinearLayout
         android:id="@+id/loginLinearLayout"
         style="@style/AuthFieldContainer"
-
+        android:layout_width="400dp"
+        android:layout_centerHorizontal="true"
         >
 
         <EditText android:id="@+id/userEmailEditText"
             style="@style/AuthEditText"
             android:hint="@string/enter_email"
-            android:inputType="textEmailAddress"
-            />
+            android:inputType="textEmailAddress">
+            <requestFocus />
+        </EditText>
 
         <EditText android:id="@+id/userPasswordEditText"
             style="@style/AuthEditText"
@@ -38,6 +41,8 @@
         android:text="@string/login_button"
         android:onClick="login"
         android:layout_below="@id/loginLinearLayout"
+        android:layout_width="400dp"
+        android:layout_centerHorizontal="true"
         />
 
     <TextView
