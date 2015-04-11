@@ -3,6 +3,7 @@ package couponswipe.cmu.edu.couponswipe.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,8 @@ import couponswipe.cmu.edu.couponswipe.R;
 
 public class DealStackActivity extends Activity {
 
+    public static final String TAG = DealStackActivity.class.getSimpleName();
+
     private int currentDemoDeal = 0;    //0,1,2 represent three sample deals
 
     @Override
@@ -26,6 +29,13 @@ public class DealStackActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_stack);
 
+//        ParseUser currentUser = ParseUser.getCurrentUser();
+//        if (currentUser == null) {
+//            navigateToLogin();
+//        }
+//        else {
+//            Log.i(TAG, currentUser.getUsername());
+//        }
 
     }
 
@@ -121,6 +131,13 @@ public class DealStackActivity extends Activity {
 
     public void openPreferences(View view){
         Intent intent = new Intent(this, DealPreferencesActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
