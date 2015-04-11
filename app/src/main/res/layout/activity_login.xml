@@ -1,51 +1,97 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_fill"
     tools:context="couponswipe.cmu.edu.couponswipe.ui.LoginActivity">
 
-    <TextView android:text="@string/login_text" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logintext"
-        android:textSize="40sp"
-        android:layout_centerHorizontal="true"
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitStart"
+        android:src="@drawable/background"
+        android:contentDescription="@string/app_name"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
-
-    <EditText android:id="@+id/user_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:imeOptions="actionNext" android:hint="@string/enter_email"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="15dp"></EditText>
-
-    <EditText android:id="@+id/user_password"
+    <TextView
+        android:id="@+id/loginTitleTextView"
+        android:text="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:imeOptions="actionNext" android:hint="@string/enter_password"
-        android:inputType="textPassword"
-        android:layout_marginTop="15dp"></EditText>
+        android:textSize="40sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
 
+    <LinearLayout
+        android:id="@+id/loginLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/loginTitleTextView"
+        android:layout_marginTop="@dimen/login_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/login_horizontal_padding"
+        android:paddingRight="@dimen/login_horizontal_padding"
+        android:paddingTop="@dimen/login_vertical_padding"
+        android:paddingBottom="@dimen/login_vertical_padding"
+
+        >
+
+        <EditText android:id="@+id/userEmailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:hint="@string/enter_email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/light_grey"
+            android:textSize="17sp"
+            />
+
+        <EditText android:id="@+id/userPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/light_grey"
+            android:textSize="17sp"
+            />
+
+    </LinearLayout>
 
 
     <Button android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_button"
         android:onClick="login"
-        android:layout_marginTop="20dp"></Button>
+        android:layout_below="@id/loginLinearLayout"
+        android:background="@drawable/button_custom"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:textSize="16sp"
+        android:textColor="@color/text_color"
+        />
 
-
-
-    <Button android:id="@+id/signupButton"
+    <TextView
+        android:id="@+id/signUpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="@string/sign_up_button"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/loginButton"
+        android:layout_marginTop="12dp"
         android:onClick="signup"
-        android:layout_marginTop="20dp"></Button>
+        />
 
 
-
-</TableLayout>
+</RelativeLayout>
