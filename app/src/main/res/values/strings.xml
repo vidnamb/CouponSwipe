@@ -12,14 +12,13 @@
     <string name="title_activity_view_deal">ViewDealActivity</string>
     <string name="enter_password">Enter password</string>
     <string name="enter_email">Enter email</string>
-    <string name="login_button">Login</string>
+    <string name="login_button">LOGIN</string>
     <string name="sign_up_button">New User? Signup!</string>
-    <string name="sign_up_text">Sign Up!</string>
-    <string name="login_text">Log in!</string>
     <string name="enter_first_name">First name</string>
     <string name="enter_last_name">Last name</string>
     <string name="enter_phone">Enter phone number</string>
-    <string name="resgister_button">Submit</string>
+    <string name="register_button">SIGN UP</string>
+    <string name="cancel_button">CANCEL</string>
     <string name="user_details">Profile</string>
     <string name="edit_profile_button">Edit</string>
     <string name="logout_button">Logout</string>
@@ -45,5 +44,6 @@
     <string name="delete">Del</string>
     <string name="view">View</string>
     <string name="buy">Buy</string>
+    <string name="button_divider">Button Divider</string>
 
 </resources>

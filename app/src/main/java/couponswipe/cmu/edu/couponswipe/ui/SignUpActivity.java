@@ -48,4 +48,9 @@ public class SignUpActivity extends Activity {
         Intent intent = new Intent(this, DealStackActivity.class);
         startActivity(intent);
     }
+
+    public void cancel(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

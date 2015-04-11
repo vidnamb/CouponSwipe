@@ -1,84 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_fill"
+    style="@style/AuthBackground"
     tools:context="couponswipe.cmu.edu.couponswipe.ui.LoginActivity">
 
     <ImageView
         android:id="@+id/backgroundImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitStart"
-        android:src="@drawable/background"
-        android:contentDescription="@string/app_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        style="@style/AuthBackgroundImage"
+        android:contentDescription="@string/app_name" />
 
     <TextView
-        android:id="@+id/loginTitleTextView"
-        android:text="@string/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:id="@+id/titleTextView"
+        style="@style/AuthTitle" />
 
     <LinearLayout
         android:id="@+id/loginLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/loginTitleTextView"
-        android:layout_marginTop="@dimen/login_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@android:color/white"
-        android:paddingLeft="@dimen/login_horizontal_padding"
-        android:paddingRight="@dimen/login_horizontal_padding"
-        android:paddingTop="@dimen/login_vertical_padding"
-        android:paddingBottom="@dimen/login_vertical_padding"
+        style="@style/AuthFieldContainer"
 
         >
 
         <EditText android:id="@+id/userEmailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:imeOptions="actionNext"
+            style="@style/AuthEditText"
             android:hint="@string/enter_email"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/light_grey"
-            android:textSize="17sp"
             />
 
         <EditText android:id="@+id/userPasswordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:imeOptions="actionNext"
+            style="@style/AuthEditText"
             android:hint="@string/enter_password"
             android:inputType="textPassword"
-            android:textColorHint="@color/light_grey"
-            android:textSize="17sp"
             />
 
     </LinearLayout>
 
-
     <Button android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/AuthButton"
         android:text="@string/login_button"
         android:onClick="login"
         android:layout_below="@id/loginLinearLayout"
-        android:background="@drawable/button_custom"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:textSize="16sp"
-        android:textColor="@color/text_color"
         />
 
     <TextView
