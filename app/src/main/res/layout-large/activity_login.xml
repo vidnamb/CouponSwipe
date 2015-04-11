@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AuthBackground"
+    tools:context="couponswipe.cmu.edu.couponswipe.ui.LoginActivity">
+
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        style="@style/AuthBackgroundImage"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        style="@style/AuthTitle"
+        android:layout_marginTop="180dp" />
+
+    <LinearLayout
+        android:id="@+id/loginLinearLayout"
+        style="@style/AuthFieldContainer"
+        android:layout_width="400dp"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText android:id="@+id/userEmailEditText"
+            style="@style/AuthEditText"
+            android:hint="@string/enter_email"
+            android:inputType="textEmailAddress">
+            <requestFocus />
+        </EditText>
+
+        <EditText android:id="@+id/userPasswordEditText"
+            style="@style/AuthEditText"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            />
+
+    </LinearLayout>
+
+    <Button android:id="@+id/loginButton"
+        style="@style/AuthButton"
+        android:text="@string/login_button"
+        android:onClick="login"
+        android:layout_below="@id/loginLinearLayout"
+        android:layout_width="400dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/signUpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sign_up_button"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/loginButton"
+        android:layout_marginTop="12dp"
+        android:onClick="signup"
+        />
+
+
+</RelativeLayout>
