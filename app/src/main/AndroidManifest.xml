@@ -22,11 +22,19 @@
         </activity>
         <activity
             android:name=".ui.UserProfileActivity"
-            android:label="@string/title_activity_user_profile" >
+            android:label="@string/title_activity_user_profile"
+            android:parentActivityName=".ui.DealStackActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DealStackActivity" />
         </activity>
         <activity
             android:name=".ui.DealShortlistActivity"
-            android:label="@string/title_activity_deal_shortlist" >
+            android:label="@string/title_activity_deal_shortlist"
+            android:parentActivityName=".ui.DealStackActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DealStackActivity" />
         </activity>
         <activity
             android:name=".ui.SignUpActivity"
@@ -34,15 +42,27 @@
         </activity>
         <activity
             android:name=".ui.DealPreferencesActivity"
-            android:label="@string/title_activity_deal_preferences" >
+            android:label="@string/title_activity_deal_preferences"
+            android:parentActivityName=".ui.DealStackActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DealStackActivity" />
         </activity>
         <activity
             android:name=".ui.ViewDealActivity"
-            android:label="@string/title_activity_view_deal" >
+            android:label="@string/title_activity_view_deal"
+            android:parentActivityName=".ui.DealStackActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DealStackActivity" />
         </activity>
         <activity
             android:name=".ui.EditProfileActivity"
-            android:label="@string/title_activity_edit_profile" >
+            android:label="@string/title_activity_edit_profile"
+            android:parentActivityName=".ui.UserProfileActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.UserProfileActivity" />
         </activity>
     </application>
 

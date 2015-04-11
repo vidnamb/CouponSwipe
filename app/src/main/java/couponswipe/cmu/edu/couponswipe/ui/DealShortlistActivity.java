@@ -27,6 +27,8 @@ public class DealShortlistActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_shortlist);
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         ArrayList<Deal> shortlistedDealsList = new ArrayList<Deal>();
         shortlistedDealsList.add(new Deal("1"));
         shortlistedDealsList.add(new Deal("2"));
