@@ -45,5 +45,7 @@
     <string name="view">View</string>
     <string name="buy">Buy</string>
     <string name="button_divider">Button Divider</string>
+    <string name="user_profile">Profile</string>
+    <string name="shortlist">Deals Shortlist</string>
 
 </resources>

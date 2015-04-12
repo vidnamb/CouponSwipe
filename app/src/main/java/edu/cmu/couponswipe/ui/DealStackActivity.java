@@ -3,12 +3,9 @@ package edu.cmu.couponswipe.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.andtinder.model.CardModel;
 import com.andtinder.model.Orientations;
@@ -56,18 +53,27 @@ public class DealStackActivity extends Activity {
 
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
 
-        adapter.add(new CardModel(getString(R.string.demo_coupon_title_1)+": "+getString(R.string.demo_coupon_price_1), getString(R.string.demo_coupon_store_1)+": "+getString(R.string.demo_coupon_distance_1), getResources().getDrawable(R.drawable.easter_coupon)));
-        adapter.add(new CardModel(getString(R.string.demo_coupon_title_2)+": "+getString(R.string.demo_coupon_price_2), getString(R.string.demo_coupon_store_2)+": "+getString(R.string.demo_coupon_distance_2), getResources().getDrawable(R.drawable.omaha_steak)));
-        adapter.add(new CardModel(getString(R.string.demo_coupon_title_3)+": "+getString(R.string.demo_coupon_price_3), getString(R.string.demo_coupon_store_3)+": "+getString(R.string.demo_coupon_distance_3), getResources().getDrawable(R.drawable.golden_gate)));
+        CardModel card1 = new CardModel(getString(R.string.demo_coupon_title_1)+": "+getString(R.string.demo_coupon_price_1), getString(R.string.demo_coupon_store_1)+": "+getString(R.string.demo_coupon_distance_1), getResources().getDrawable(R.drawable.easter_coupon));
+        CardModel card2 = new CardModel(getString(R.string.demo_coupon_title_2)+": "+getString(R.string.demo_coupon_price_2), getString(R.string.demo_coupon_store_2)+": "+getString(R.string.demo_coupon_distance_2), getResources().getDrawable(R.drawable.omaha_steak));
+        CardModel card3 = new CardModel(getString(R.string.demo_coupon_title_3)+": "+getString(R.string.demo_coupon_price_3), getString(R.string.demo_coupon_store_3)+": "+getString(R.string.demo_coupon_distance_3), getResources().getDrawable(R.drawable.golden_gate));
+
+        adapter.add(card1);
+        adapter.add(card2);
+        adapter.add(card3);
 
         mCardContainer.setAdapter(adapter);
 
     }
 
+    public void openDeal()
+    {
+        Intents.openDeal(this);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_deal_stack, menu);
         return true;
     }
 
@@ -78,20 +84,26 @@ public class DealStackActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_user_profile:
+                openUserProfile();
+                return true;
+            case R.id.action_shortlist:
+                openShortlist();
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    public void openUserProfile(View view)
+    public void openUserProfile()
     {
         Intents.openUserProfile(this);
     }
 
-    public void openShortlist(View view)
+    public void openShortlist()
     {
         Intents.openShortList(this);
     }

@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".DealStackActivity">
+
+    <!-- profile, should appear as action button -->
+    <item android:id="@+id/action_user_profile"
+        android:icon="@drawable/user"
+        android:title="@string/user_profile"
+        android:showAsAction="ifRoom" />
+
+    <!-- deals shortlist, should appear as action button -->
+    <item android:id="@+id/action_shortlist"
+        android:icon="@drawable/list"
+        android:title="@string/shortlist"
+        android:showAsAction="ifRoom" />
+
+    <!-- settings, should always be in the overflow -->
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:showAsAction="never" />
+</menu>
