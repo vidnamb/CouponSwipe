@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="0.25">
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
@@ -55,95 +55,18 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="#ffffffff"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/coupon_imageView"
-                android:layout_gravity="center_horizontal|top"
-                android:src="@drawable/easter_coupon"
-                android:longClickable="false"
-                android:layout_weight="1" />
+            <com.andtinder.view.CardContainer
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/layoutview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#ff6cbf49" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/demo_coupon_title_1"
-                    android:id="@+id/deal_title_textView"
-                    android:singleLine="false"
-                    android:textSize="30dp"
-                    android:layout_gravity="top" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/demo_coupon_store_1"
-                    android:id="@+id/deal_store_textView"
-                    android:textSize="25dp"
-                    android:layout_gravity="top" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/demo_coupon_distance_1"
-                    android:id="@+id/deal_distance_textView"
-                    android:textSize="25dp"
-                    android:layout_gravity="top" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/demo_coupon_price_1"
-                    android:id="@+id/deal_price_textView"
-                    android:layout_gravity="right|top"
-                    android:textSize="25dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/discard_button"
-                android:background="@drawable/cross"
-                android:backgroundTint="#ffffffff"
-                android:layout_marginRight="@android:dimen/app_icon_size"
-                android:onClick="discardDeal"
-                android:layout_gravity="bottom" />
-
-            <Button
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/like_button"
-                android:background="@drawable/purple_heart"
-                android:backgroundTint="#ffffffff"
-                android:layout_marginLeft="@android:dimen/app_icon_size"
-                android:onClick="likeDeal"
-                android:layout_gravity="bottom" />
         </LinearLayout>
 
         <Button
@@ -153,7 +76,7 @@
             android:layout_gravity="center_horizontal"
             android:onClick="openPreferences"
             android:background="@drawable/preferences"
-            android:layout_weight="1" />
+            android:layout_weight="0.25" />
 
     </LinearLayout>
 

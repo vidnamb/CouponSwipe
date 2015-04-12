@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.andtinder.model.CardModel;
+import com.andtinder.model.Orientations;
+import com.andtinder.view.CardContainer;
+import com.andtinder.view.SimpleCardStackAdapter;
+
 import couponswipe.cmu.edu.couponswipe.R;
 
 /**
@@ -37,8 +42,26 @@ public class DealStackActivity extends Activity {
 //            Log.i(TAG, currentUser.getUsername());
 //        }
 
+        buildSwipeCards();
     }
 
+
+    //Set up Cards for Swiping
+    public void buildSwipeCards()
+    {
+        CardContainer mCardContainer = (CardContainer) findViewById(R.id.layoutview);
+
+        mCardContainer.setOrientation(Orientations.Orientation.Disordered);
+
+        SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
+
+        adapter.add(new CardModel(getString(R.string.demo_coupon_title_1)+": "+getString(R.string.demo_coupon_price_1), getString(R.string.demo_coupon_store_1)+": "+getString(R.string.demo_coupon_distance_1), getResources().getDrawable(R.drawable.easter_coupon)));
+        adapter.add(new CardModel(getString(R.string.demo_coupon_title_2)+": "+getString(R.string.demo_coupon_price_2), getString(R.string.demo_coupon_store_2)+": "+getString(R.string.demo_coupon_distance_2), getResources().getDrawable(R.drawable.omaha_steak)));
+        adapter.add(new CardModel(getString(R.string.demo_coupon_title_3)+": "+getString(R.string.demo_coupon_price_3), getString(R.string.demo_coupon_store_3)+": "+getString(R.string.demo_coupon_distance_3), getResources().getDrawable(R.drawable.golden_gate)));
+
+        mCardContainer.setAdapter(adapter);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,61 +83,6 @@ public class DealStackActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void likeDeal(View view){
-
-        showNextDealInStack();
-    }
-
-    public void discardDeal(View view){
-
-        showNextDealInStack();
-    }
-
-    public void showNextDealInStack(){
-
-        currentDemoDeal++;
-        if(currentDemoDeal>2)
-            currentDemoDeal=0;
-
-        ImageView dealImageView = (ImageView) findViewById(R.id.coupon_imageView);
-        TextView dealTitleTextView = (TextView) findViewById(R.id.deal_title_textView);
-        TextView dealStoreTextView = (TextView) findViewById(R.id.deal_store_textView);
-        TextView dealDistanceTextView = (TextView) findViewById(R.id.deal_distance_textView);
-        TextView dealPriceTextView = (TextView) findViewById(R.id.deal_price_textView);
-
-        switch (currentDemoDeal)
-        {
-            case 0:
-            {
-                dealImageView.setImageResource(R.drawable.easter_coupon);
-                dealTitleTextView.setText(getString(R.string.demo_coupon_title_1));
-                dealStoreTextView.setText(getString(R.string.demo_coupon_store_1));
-                dealDistanceTextView.setText(getString(R.string.demo_coupon_distance_1));
-                dealPriceTextView.setText(getString(R.string.demo_coupon_price_1));
-                break;
-            }
-            case 1:
-            {
-                dealImageView.setImageResource(R.drawable.omaha_steak);
-                dealTitleTextView.setText(getString(R.string.demo_coupon_title_2));
-                dealStoreTextView.setText(getString(R.string.demo_coupon_store_2));
-                dealDistanceTextView.setText(getString(R.string.demo_coupon_distance_2));
-                dealPriceTextView.setText(getString(R.string.demo_coupon_price_2));
-                break;
-            }
-            case 2:
-            {
-                dealImageView.setImageResource(R.drawable.golden_gate);
-                dealTitleTextView.setText(getString(R.string.demo_coupon_title_3));
-                dealStoreTextView.setText(getString(R.string.demo_coupon_store_3));
-                dealDistanceTextView.setText(getString(R.string.demo_coupon_distance_3));
-                dealPriceTextView.setText(getString(R.string.demo_coupon_price_3));
-                break;
-            }
-        }
-
     }
 
     public void openUserProfile(View view)
