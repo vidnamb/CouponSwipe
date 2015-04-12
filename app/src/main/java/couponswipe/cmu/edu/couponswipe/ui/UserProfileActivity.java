@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import couponswipe.cmu.edu.couponswipe.R;
+import couponswipe.cmu.edu.couponswipe.ui.intents.Intents;
 
 public class UserProfileActivity extends Activity {
 
@@ -15,6 +16,8 @@ public class UserProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -40,14 +43,11 @@ public class UserProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void editProfile(View view)
-    {
-        Intent intent = new Intent(this, EditProfileActivity.class);
-        startActivity(intent);
+    public void editProfile(View view){
+        Intents.openEditProfile(this);
     }
 
     public void logout(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        Intents.openLoginPage(this);
     }
 }

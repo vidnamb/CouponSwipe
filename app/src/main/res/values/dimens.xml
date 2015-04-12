@@ -5,4 +5,5 @@
     <dimen name="login_vertical_margin">32dp</dimen>
     <dimen name="login_horizontal_padding">10dp</dimen>
     <dimen name="login_vertical_padding">10dp</dimen>
+    <dimen name="user_grid_spacing">8dp</dimen>
 </resources>

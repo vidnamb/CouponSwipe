@@ -30,6 +30,8 @@ public class DealPreferencesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_preferences);
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         dealCategoriesListView = (ListView) findViewById(R.id.dealCategoriesListView);
         dealCategoriesListView.setChoiceMode(dealCategoriesListView.CHOICE_MODE_MULTIPLE);
 
