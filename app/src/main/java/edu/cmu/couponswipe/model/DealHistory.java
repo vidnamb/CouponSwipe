@@ -4,8 +4,8 @@ package edu.cmu.couponswipe.model;
  * Created by sparshith on 10/4/15.
  */
 public class DealHistory {
-    private String userId;
-    private String dealId;
+    private int userId;
+    private String dealUuid;
     private String action;
     private String updatedAt;
     private String createdAt;
@@ -14,29 +14,29 @@ public class DealHistory {
         super();
     }
 
-    public DealHistory(String userId, String dealId, String action, String updatedAt, String createdAt) {
+    public DealHistory(int userId, String dealUuid, String action, String updatedAt, String createdAt) {
         this.userId = userId;
-        this.dealId = dealId;
+        this.dealUuid = dealUuid;
         this.action = action;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
 
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getDealId() {
-        return dealId;
+    public String getDealUuid() {
+        return dealUuid;
     }
 
-    public void setDealId(String dealId) {
-        this.dealId = dealId;
+    public void setDealUuid(String dealUuid) {
+        this.dealUuid = dealUuid;
     }
 
     public String getAction() {

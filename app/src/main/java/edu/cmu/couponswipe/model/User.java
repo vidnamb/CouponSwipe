@@ -4,42 +4,36 @@ package edu.cmu.couponswipe.model;
  * Created by sparshith on 10/4/15.
  */
 public class User {
+    private int userId;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private String password;
-    private String prefDistance;
-    private String prefCategory;
+    private int prefDistance;
+    private String prefCategories;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String password) {
+    public User(int userId, String firstName, String lastName, String email, String phoneNumber, String password, int prefDistance, String prefCategories) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-    }
-
-
-    public String getPrefDistance() {
-        return prefDistance;
-    }
-
-    public void setPrefDistance(String prefDistance) {
         this.prefDistance = prefDistance;
+        this.prefCategories = prefCategories;
     }
 
-    public String getPrefCategory() {
-        return prefCategory;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setPrefCategory(String prefCategory) {
-        this.prefCategory = prefCategory;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -80,4 +74,21 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getPrefDistance() {
+        return prefDistance;
+    }
+
+    public void setPrefDistance(int prefDistance) {
+        this.prefDistance = prefDistance;
+    }
+
+    public String getPrefCategories() {
+        return prefCategories;
+    }
+
+    public void setPrefCategories(String prefCategories) {
+        this.prefCategories = prefCategories;
+    }
+
 }

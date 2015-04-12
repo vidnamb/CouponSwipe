@@ -16,33 +16,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    private static final String TABLE_USERS = "create table users (first_name varchar(255), last_name varchar(255), email varchar(255)," +
+    private static final String TABLE_USERS = "create table users (user_id int, first_name varchar(255), last_name varchar(255), email varchar(255)," +
             " password varchar(255), phone varchar(255), created_at DATE, updated_at DATE";
 
-    private static final String TABLE_DEALS = "create table deals (dealid INT" +
-            "  title varchar(255)" +
-            "  descr text" +
-            "  location varchar(255)" +
-            "  latitude varchar(255)" +
-            "  longitude varchar(255)" +
-            "  amount float" +
-            "  currency varchar(255)" +
-            "  start_date varchar(255)" +
-            "  expiry_date varchar(255)" +
-            "  category varchar(255)" +
-            "  small_url varchar(255)" +
-            "  medium_url varchar(255)" +
-            "  large_url varchar(255)" +
-            "  merchant_id varchar(255)" +
-            "  merchant_name varchar(255)" +
-            "  merchant_url varchar(255)" +
+    private static final String TABLE_DEALS = "create table deals (dealuuid varchar(255)," +
+            "  title varchar(255)," +
+            "  descr text," +
+            "  location varchar(255)," +
+            "  latitude varchar(255)," +
+            "  longitude varchar(255)," +
+            "  amount float," +
+            "  currency varchar(255)," +
+            "  start_date varchar(255)," +
+            "  expiry_date varchar(255)," +
+            "  category varchar(255)," +
+            "  small_url varchar(255)," +
+            "  medium_url varchar(255)," +
+            "  large_url varchar(255)," +
+            "  merchant_id varchar(255)," +
+            "  merchant_name varchar(255)," +
+            "  merchant_url varchar(255)," +
             "  dealbuy_url varchar(255))";
 
     private static final String TABLE_DEAL_HISTORY = "create table history(" +
-            "  deal_id INT" +
-            "  user_id varchar(255)" +
-            "  action varchar(255)" +
-            "  created_at date" +
+            "  user_id int," +
+            "  deal_id varchar(255)," +
+            "  action varchar(255)," +
+            "  created_at date," +
             "  updated_at date)";
 
     @Override
