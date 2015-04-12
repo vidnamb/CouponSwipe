@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.util.ArrayList;
+
+import edu.cmu.couponswipe.model.Deal;
 import edu.cmu.couponswipe.ws.remote.ICouponswipeService;
 
 /**
@@ -15,12 +18,34 @@ public class GrouponDealService extends Service {
 
     public class GrouponDealServiceImpl extends IDealService.Stub
     {
-//        @Override
-//        public User authenticateUser(String ticker) throws RemoteException
-//        {
-//            Log.v(TAG, "getQuote() called for " + ticker);
-//            return new User();
-//        }
+        public ArrayList<Deal> getDeals() {
+            return new ArrayList<Deal>();
+        }
+
+        public ArrayList<Deal> getDeals(double lat, double lon, int radius) {
+            return new ArrayList<Deal>();
+        }
+
+        public ArrayList<Deal> getDeals(double lat, double lon, int radius, String categories) {
+            return new ArrayList<Deal>();
+        }
+
+        public Deal getDeal(String uuid) {
+            return new Deal();
+        }
+
+        public boolean shortlistDeal(String username, String uuid) {
+            return true;
+        }
+
+        public boolean buyDeal(String username, String uuid) {
+            return true;
+        }
+
+        public boolean deleteDeal(String username, String uuid) {
+            return true;
+        }
+
     }
 
     @Override
