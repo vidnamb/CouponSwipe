@@ -31,6 +31,10 @@ public class DealDAO {
 
     }
 
+    public Deal getDeal(String dealId) {
+        return null;
+    }
+
     public void deleteDeal(Deal deal) {
 
     }

@@ -30,6 +30,10 @@ public class DealHistoryDAO {
 
     }
 
+    public DealHistory getDealHistory(String dealId) {
+        return null;
+    }
+
     public void deleteDealHistory(DealHistory dealHistory) {
 
     }

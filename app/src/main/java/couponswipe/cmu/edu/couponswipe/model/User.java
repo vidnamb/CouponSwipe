@@ -9,6 +9,8 @@ public class User {
     private String email;
     private String phoneNumber;
     private String password;
+    private String prefDistance;
+    private String prefCategory;
 
     public User(String firstName, String lastName, String email, String phoneNumber, String password) {
         this.firstName = firstName;
@@ -17,6 +19,24 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
+
+
+    public String getPrefDistance() {
+        return prefDistance;
+    }
+
+    public void setPrefDistance(String prefDistance) {
+        this.prefDistance = prefDistance;
+    }
+
+    public String getPrefCategory() {
+        return prefCategory;
+    }
+
+    public void setPrefCategory(String prefCategory) {
+        this.prefCategory = prefCategory;
+    }
+
 
     public String getFirstName() {
         return firstName;

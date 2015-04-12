@@ -31,6 +31,10 @@ public class UserDAO {
 
     }
 
+    public User getUser(String email, String password) {
+        return null;
+    }
+
     public void deleteUser(User user) {
 
     }
