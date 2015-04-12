@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "couponswipe.cmu.edu.couponswipe"
+        applicationId "edu.cmu.couponswipe"
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1

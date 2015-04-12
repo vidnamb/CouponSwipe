@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/AuthBackground"
-    tools:context="couponswipe.cmu.edu.couponswipe.ui.LoginActivity">
+    tools:context="edu.cmu.couponswipe.ui.LoginActivity">
 
     <ImageView
         android:id="@+id/backgroundImageView"
