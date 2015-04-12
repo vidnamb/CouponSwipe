@@ -17,12 +17,27 @@ public class CouponswipeService extends Service {
 
     public class CouponswipeServiceImpl extends ICouponswipeService.Stub
     {
-//        @Override
-//        public User authenticateUser(String ticker) throws RemoteException
-//        {
-//            Log.v(TAG, "getQuote() called for " + ticker);
-//            return new User();
-//        }
+
+        public User createUser(String username, String email, String phone, String password) {
+            return new User();
+        }
+
+        public User authenticateUser(String username, String password) {
+            return new User();
+        }
+
+        public User getUser(String username) {
+            return new User();
+        }
+
+        public boolean saveUser(User user) {
+            return true;
+        }
+
+        public boolean deleteUser(String username) {
+            return true;
+        }
+
     }
 
     @Override
