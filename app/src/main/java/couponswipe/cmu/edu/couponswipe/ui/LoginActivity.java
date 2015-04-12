@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import couponswipe.cmu.edu.couponswipe.R;
+import couponswipe.cmu.edu.couponswipe.ui.intents.Intents;
 
 public class LoginActivity extends Activity {
 
@@ -46,12 +47,10 @@ public class LoginActivity extends Activity {
 
 
     public void login(View view){
-        Intent intent = new Intent(this, DealStackActivity.class);
-        startActivity(intent);
+        Intents.openDealStack(this);
     }
 
     public void signup(View view){
-            Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
+        Intents.openSignUpPage(this);
     }
 }

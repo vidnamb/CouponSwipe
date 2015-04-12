@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import couponswipe.cmu.edu.couponswipe.R;
 import couponswipe.cmu.edu.couponswipe.adapter.ShortlistDealAdapter;
 import couponswipe.cmu.edu.couponswipe.model.Deal;
+import couponswipe.cmu.edu.couponswipe.ui.intents.Intents;
 
 public class DealShortlistActivity extends ListActivity {
 
@@ -65,7 +66,6 @@ public class DealShortlistActivity extends ListActivity {
 
     public void viewDeal(View view)
     {
-        Intent intent = new Intent(this, ViewDealActivity.class);
-        startActivity(intent);
+        Intents.openDeal(this);
     }
 }

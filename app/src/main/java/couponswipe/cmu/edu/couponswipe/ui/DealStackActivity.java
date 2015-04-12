@@ -16,6 +16,7 @@ import com.andtinder.view.CardContainer;
 import com.andtinder.view.SimpleCardStackAdapter;
 
 import couponswipe.cmu.edu.couponswipe.R;
+import couponswipe.cmu.edu.couponswipe.ui.intents.Intents;
 
 /**
  * MainActivity - renamed to DealStackActivity
@@ -87,19 +88,17 @@ public class DealStackActivity extends Activity {
 
     public void openUserProfile(View view)
     {
-        Intent intent = new Intent(this, UserProfileActivity.class);
-        startActivity(intent);
+        Intents.openUserProfile(this);
     }
 
     public void openShortlist(View view)
     {
-        Intent intent = new Intent(this, DealShortlistActivity.class);
-        startActivity(intent);
+        Intents.openShortList(this);
     }
 
     public void openPreferences(View view){
-        Intent intent = new Intent(this, DealPreferencesActivity.class);
-        startActivity(intent);
+
+        Intents.openDealPreferences(this);
     }
 
     private void navigateToLogin() {

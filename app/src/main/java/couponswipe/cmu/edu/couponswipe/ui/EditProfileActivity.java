@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import couponswipe.cmu.edu.couponswipe.R;
+import couponswipe.cmu.edu.couponswipe.ui.intents.Intents;
 
 public class EditProfileActivity extends Activity {
 
@@ -43,8 +44,7 @@ public class EditProfileActivity extends Activity {
     }
 
     public void update(View view){
-        Intent intent = new Intent(this, UserProfileActivity.class);
-        startActivity(intent);
+        Intents.openUserProfile(this);
     }
 
 
