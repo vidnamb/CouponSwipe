@@ -47,5 +47,6 @@
     <string name="button_divider">Button Divider</string>
     <string name="user_profile">Profile</string>
     <string name="shortlist">Deals Shortlist</string>
+    <string name="network_unavailable_message">No Network Connectivity</string>
 
 </resources>

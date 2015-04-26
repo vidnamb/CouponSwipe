@@ -1,76 +1,14 @@
 package edu.cmu.couponswipe.ws.local;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-import android.util.Log;
-
-import java.util.ArrayList;
-
-import edu.cmu.couponswipe.model.Deal;
-import edu.cmu.couponswipe.ws.remote.ICouponswipeService;
-
 /**
  * Created by lloyddsilva on 11/4/15.
  */
-public class GrouponDealService extends Service {
+public class GrouponDealService {
     private static final String TAG = "GrouponDealService";
 
-    public class GrouponDealServiceImpl extends IDealService.Stub
-    {
-        public ArrayList<Deal> getDeals() {
-            return new ArrayList<Deal>();
-        }
+    // https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_203792_212556_0&lat=37.398873&lng=-122.071806&radius=10&offset=0&limit=20
+    private static final String apiToken = "US_AFF_0_203792_212556_0";
+    private static final int numDeals = 20;
 
-        public ArrayList<Deal> getDeals(double lat, double lon, int radius) {
-            return new ArrayList<Deal>();
-        }
 
-        public ArrayList<Deal> getDeals(double lat, double lon, int radius, String categories) {
-            return new ArrayList<Deal>();
-        }
-
-        public Deal getDeal(String uuid) {
-            return new Deal();
-        }
-
-        public boolean shortlistDeal(String username, String uuid) {
-            return true;
-        }
-
-        public boolean buyDeal(String username, String uuid) {
-            return true;
-        }
-
-        public boolean deleteDeal(String username, String uuid) {
-            return true;
-        }
-
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.v(TAG, "onCreate() called");
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        Log.v(TAG, "onDestroy() called");
-    }
-
-    @Override
-    public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
-        Log.v(TAG, "onStart() called");
-    }
-
-    @Override
-    public IBinder onBind(Intent intent)
-    {
-        Log.v(TAG, "onBind() called");
-        return new GrouponDealServiceImpl();
-    }
 }

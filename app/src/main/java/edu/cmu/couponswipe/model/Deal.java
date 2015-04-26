@@ -4,7 +4,7 @@ package edu.cmu.couponswipe.model;
  * Created by lloyddsilva on 4/4/15.
  */
 
-// https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_201236_212556_0&offset=0&limit=1
+// https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_203792_212556_0&lat=37.398873&lng=-122.071806&radius=10&offset=0&limit=20
 public class Deal {
     private String dealUuid;
     private String dealTitle;

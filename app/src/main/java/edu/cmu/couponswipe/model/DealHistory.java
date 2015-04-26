@@ -4,6 +4,7 @@ package edu.cmu.couponswipe.model;
  * Created by sparshith on 10/4/15.
  */
 public class DealHistory {
+    private int historyId;
     private int userId;
     private String dealUuid;
     private String action;
