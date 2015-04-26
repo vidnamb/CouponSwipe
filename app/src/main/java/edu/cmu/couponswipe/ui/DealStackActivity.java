@@ -53,7 +53,7 @@ public class DealStackActivity extends Activity {
 
     // https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_203792_212556_0&lat=37.398873&lng=-122.071806&radius=10&offset=0&limit=20
     private static final String apiToken = "US_AFF_0_203792_212556_0";
-    private static final int numDeals = 20;
+    private static final int numDeals = 10;
 
     // Session Manager Class
     SessionManager session;
@@ -90,10 +90,10 @@ public class DealStackActivity extends Activity {
         if(location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-
+            getDeals();
 
         } else {
-
+            getDeals();
         }
 
 
@@ -178,14 +178,14 @@ public class DealStackActivity extends Activity {
     }
 
     public ArrayList<Deal> getDeals() {
-        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "offset=0&limit=" + numDeals;
-
+        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
+        callDealAPI(dealUrl);
         return new ArrayList<Deal>();
     }
 
     public ArrayList<Deal> getDeals(ArrayList<String> dealCategories) {
-        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "offset=0&limit=" + numDeals;
-
+        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
+        callDealAPI(dealUrl);
         return new ArrayList<Deal>();
     }
 
@@ -194,7 +194,7 @@ public class DealStackActivity extends Activity {
                 + "&radius=" + dealRadius + "&offset=0&limit=" + numDeals;
 
 
-
+        callDealAPI(dealUrl);
         return new ArrayList<Deal>();
 
     }
@@ -233,8 +233,9 @@ public class DealStackActivity extends Activity {
 
                     try {
                         String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
+                        //Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
+                            ArrayList<Deal> deals = parseDeals(jsonData);
 //                            mForecast = parseForecastDetails(jsonData);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -246,6 +247,8 @@ public class DealStackActivity extends Activity {
 //                            alertUserAboutError();
                         }
                     } catch (IOException e) {
+                        Log.e(TAG, "Exception caught: ", e);
+                    } catch (JSONException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     }
                 }
@@ -292,7 +295,26 @@ public class DealStackActivity extends Activity {
             JSONObject jsonDeal = dealData.getJSONObject(i);
             Deal deal = new Deal();
 
-            deal.setDealTitle(jsonDeal.getString(""));
+            deal.setDealUuid(jsonDeal.getString("uuid"));
+            deal.setDealTitle(jsonDeal.getString("announcementTitle"));
+            deal.setDealDescription(jsonDeal.getString("title"));
+//            deal.setDealLocation(jsonDeal.getString(""));
+//            deal.setDealLatitude(jsonDeal.getString(""));
+//            deal.setDealLongitude(jsonDeal.getString(""));
+//            deal.setDealAmount(jsonDeal.getString(""));
+//            deal.setDealCurrency(jsonDeal.getString(""));
+            deal.setDealStartDate(jsonDeal.getString("startAt"));
+            deal.setDealExpiryDate(jsonDeal.getString("endAt"));
+//            deal.setDealCategory(jsonDeal.getString(""));
+            deal.setSmallImageUrl(jsonDeal.getString("smallImageUrl"));
+            deal.setMediumImageUrl(jsonDeal.getString("mediumImageUrl"));
+            deal.setLargeImageUrl(jsonDeal.getString("largeImageUrl"));
+//            deal.setMerchantUuid(jsonDeal.getString(""));
+//            deal.setMerchantName(jsonDeal.getString(""));
+//            deal.setMerchantUrl(jsonDeal.getString(""));
+            deal.setDealBuyUrl(jsonDeal.getString("dealUrl")); //Options->buyUrl
+
+
 
             deals.add(deal);
         }
