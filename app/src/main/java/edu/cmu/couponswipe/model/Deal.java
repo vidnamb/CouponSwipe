@@ -41,6 +41,30 @@ public class Deal {
         dealUuid = dealUuid;
     }
 
+    public Deal(String dealUuid, String dealTitle, String dealDescription, String dealLocation,
+                String dealLatitude, String dealLongitude, String dealAmount, String dealCurrency,
+                String dealStartDate, String dealExpiryDate, String smallImageUrl,
+                String mediumImageUrl, String largeImageUrl, String merchantUuid, String merchantName,
+                String merchantUrl, String dealBuyUrl){
+        this.dealUuid = dealUuid;
+        this.dealTitle = dealTitle;
+        this.dealDescription = dealDescription;
+        this.dealLocation = dealLocation;
+        this.dealLatitude = dealLatitude;
+        this.dealLongitude = dealLongitude;
+        this.dealAmount = dealAmount;
+        this.dealCurrency = dealCurrency;
+        this.dealStartDate = dealStartDate;
+        this.dealExpiryDate = dealExpiryDate;
+        this.smallImageUrl = smallImageUrl;
+        this.mediumImageUrl = mediumImageUrl;
+        this.largeImageUrl = largeImageUrl;
+        this.merchantUuid = merchantUuid;
+        this.merchantName = merchantName;
+        this.merchantUrl = merchantUrl;
+        this.dealBuyUrl = dealBuyUrl;
+    }
+
     public String getDealUuid() {
         return dealUuid;
     }
