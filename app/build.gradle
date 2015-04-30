@@ -23,4 +23,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.github.kikoso:SwipeableCards:1.1-RELEASE@aar'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
+    compile files('libs/android-async-http-1.4.4.jar')
 }
