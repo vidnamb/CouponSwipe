@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "couponswipe";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,6 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "  dealbuy_url varchar(255))";
 
     private static final String TABLE_DEAL_HISTORY = "create table history(" +
+            "  history_id int," +
             "  user_id int," +
             "  deal_id varchar(255)," +
             "  action varchar(255)," +

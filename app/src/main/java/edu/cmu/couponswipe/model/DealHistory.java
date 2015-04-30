@@ -4,6 +4,7 @@ package edu.cmu.couponswipe.model;
  * Created by sparshith on 10/4/15.
  */
 public class DealHistory {
+
     private int historyId;
     private int userId;
     private String dealUuid;
@@ -23,6 +24,16 @@ public class DealHistory {
         this.createdAt = createdAt;
     }
 
+    public DealHistory(int historyId, int userId, String dealUuid, String action, String updatedAt, String createdAt) {
+        this.historyId = historyId;
+        this.userId = userId;
+        this.dealUuid = dealUuid;
+        this.action = action;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
+    public int getHistoryId() {  return historyId; }
 
     public int getUserId() {
         return userId;

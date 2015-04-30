@@ -64,7 +64,7 @@ public class DealDAO {
                         "location","latitude", "longitude", "amount", "currency", "start_date",
                         "expiry_date", "small_url", "medium_url", "large_url", "merchant_id",
                         "merchant_name", "merchant_url", "dealbuy_url"},
-                "dealuuid="+dealId, null, null, null, "student_id");
+                "dealuuid="+dealId, null, null, null, "dealuuid");
 
         if(cursor!=null)
         {
