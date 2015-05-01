@@ -216,6 +216,7 @@ public class DealStackActivity extends Activity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
+                    //handle failure
                 }
 
                 @Override
@@ -233,7 +234,7 @@ public class DealStackActivity extends Activity {
                                 }
                             });
                         } else {
-
+                            //handle non ok response
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
@@ -264,21 +265,41 @@ public class DealStackActivity extends Activity {
                 deal.setDealUuid(jsonDeal.getString("uuid"));
                 deal.setDealTitle(jsonDeal.getString("announcementTitle"));
                 deal.setDealDescription(jsonDeal.getString("title"));
-//            deal.setDealLocation(jsonDeal.getString(""));
-//            deal.setDealLatitude(jsonDeal.getString(""));
-//            deal.setDealLongitude(jsonDeal.getString(""));
-//            deal.setDealAmount(jsonDeal.getString(""));
-//            deal.setDealCurrency(jsonDeal.getString(""));
+
+                JSONArray divisionData = jsonDeal.getJSONArray("division");
+
+
                 deal.setDealStartDate(jsonDeal.getString("startAt"));
                 deal.setDealExpiryDate(jsonDeal.getString("endAt"));
-//            deal.setDealCategory(jsonDeal.getString(""));
+//              deal.setDealCategory(jsonDeal.getString(""));
                 deal.setSmallImageUrl(jsonDeal.getString("smallImageUrl"));
                 deal.setMediumImageUrl(jsonDeal.getString("mediumImageUrl"));
                 deal.setLargeImageUrl(jsonDeal.getString("largeImageUrl"));
-//            deal.setMerchantUuid(jsonDeal.getString(""));
-//            deal.setMerchantName(jsonDeal.getString(""));
-//            deal.setMerchantUrl(jsonDeal.getString(""));
-                deal.setDealBuyUrl(jsonDeal.getString("dealUrl")); //Options->buyUrl
+
+                //Merchant Details
+                JSONArray merchantData = jsonDeal.getJSONArray("merchant");
+                deal.setMerchantUuid(merchantData.getJSONObject(0).getString("uuid"));
+                deal.setMerchantName(merchantData.getJSONObject(0).getString("name"));
+                deal.setMerchantUrl(merchantData.getJSONObject(0).getString("websiteUrl"));
+
+                //Deal Details URL
+                //deal.setDealBuyUrl(jsonDeal.getString("dealUrl"));
+
+                //Location, Price, Deal Buy URL
+                JSONArray optionsData = jsonDeal.getJSONArray("options");
+                deal.setDealBuyUrl(optionsData.getJSONObject(0).getString("buyUrl"));
+
+                JSONArray locationData = optionsData.getJSONObject(0).getJSONArray("redemptionLocations");
+                deal.setDealLocation(locationData.getJSONObject(0).getString("name") + " " + locationData.getJSONObject(0).getString("city"));
+                deal.setDealLatitude(locationData.getJSONObject(0).getString("lat"));
+                deal.setDealLongitude(locationData.getJSONObject(0).getString("lng"));
+
+                JSONArray priceData = optionsData.getJSONObject(0).getJSONArray("price");
+                deal.setDealAmount(priceData.getJSONObject(0).getString("formattedAmount"));
+                deal.setDealCurrency(priceData.getJSONObject(0).getString("currencyCode"));
+
+
+
 
                 deals.add(deal);
             } catch (Exception e) {
