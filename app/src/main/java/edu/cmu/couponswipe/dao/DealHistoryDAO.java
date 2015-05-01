@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import edu.cmu.couponswipe.database.DatabaseHandler;
 import edu.cmu.couponswipe.model.Deal;
 import edu.cmu.couponswipe.model.DealHistory;
@@ -31,35 +35,33 @@ public class DealHistoryDAO {
 
     public void addDealHistory(DealHistory dealHistory) {
 
-        ContentValues newDeal = new ContentValues();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String created_at = dateFormat.format(date);
 
-        newDeal.put("history_id", dealHistory.getHistoryId());
-        newDeal.put("user_id", dealHistory.getUserId());
+        ContentValues newDeal = new ContentValues();
+        newDeal.put("email", dealHistory.getEmail());
         newDeal.put("deal_id", dealHistory.getDealUuid());
         newDeal.put("action", dealHistory.getAction());
-        newDeal.put("created_at", dealHistory.getCreatedAt());
-        newDeal.put("updated_at", dealHistory.getUpdatedAt());
-
+        newDeal.put("created_at", created_at);
         open();
-
         database.insert("history", null, newDeal);
-
         close();
+
     }
 
-    public DealHistory getDealHistory(String dealId) {
+    public DealHistory getDealHistory(String dealId, String email) {
 
-        Cursor cursor = database.query("history", new String[] {"history_id", "user_id", "deal_id",
+        Cursor cursor = database.query("history", new String[] {"email", "deal_id",
                         "action","created_at", "updated_at"},
-                "deal_id="+dealId, null, null, null, "history_id");
+                "deal_id="+dealId+"and email="+email, null, null, null, null);
 
         if(cursor!=null)
         {
             cursor.moveToFirst();
 
             DealHistory deal = new DealHistory(
-                    cursor.getInt(cursor.getColumnIndex("history_id")),
-                    cursor.getInt(cursor.getColumnIndex("user_id")),
+                    cursor.getString(cursor.getColumnIndex("email")),
                     cursor.getString(cursor.getColumnIndex("deal_id")),
                     cursor.getString(cursor.getColumnIndex("action")),
                     cursor.getString(cursor.getColumnIndex("created_at")),
@@ -74,7 +76,7 @@ public class DealHistoryDAO {
 
     public void deleteDealHistory(DealHistory dealHistory) {
 
-        String where = "deal_id="+dealHistory.getDealUuid();
+        String where = "deal_id="+dealHistory.getDealUuid()+"and email="+dealHistory.getEmail();
 
         database.delete("history",where,null);
 
@@ -84,13 +86,15 @@ public class DealHistoryDAO {
 
         ContentValues newDeal = new ContentValues();
 
-        String where = "deal_id="+dealHistory.getDealUuid();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String updated_at = dateFormat.format(date);
 
-        newDeal.put("history_id", dealHistory.getHistoryId());
-        newDeal.put("user_id", dealHistory.getUserId());
+        String where = "deal_id="+dealHistory.getDealUuid()+"and email="+dealHistory.getEmail();
+
+        newDeal.put("email", dealHistory.getEmail());
         newDeal.put("deal_id", dealHistory.getDealUuid());
         newDeal.put("action", dealHistory.getAction());
-        newDeal.put("created_at", dealHistory.getCreatedAt());
         newDeal.put("updated_at", dealHistory.getUpdatedAt());
 
         open();
