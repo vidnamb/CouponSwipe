@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by sparshith on 10/4/15.
  */
 public class User {
-    private int userId;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -16,46 +16,41 @@ public class User {
     private double lastLatitude;
     private int dealRadius;
     private ArrayList<String> dealCategories;
+    private String updatedAt;
+    private String createdAt;
 
     public User() {
         this.dealRadius = 10;
         this.dealCategories = new ArrayList<String>();
-        dealCategories.add("food-and-drink");
-        dealCategories.add("things-to-do");
-        dealCategories.add("beauty-and-spas");
-        dealCategories.add("health-and-fitness");
-        dealCategories.add("home-improvement");
-        dealCategories.add("local-services");
-        dealCategories.add("shopping");
-        dealCategories.add("automotive");
-        dealCategories.add("auto-and-home-improvement");
-        dealCategories.add("baby-kids-and-toys");
-        dealCategories.add("basics");
-        dealCategories.add("electronics");
-        dealCategories.add("entertainment");
-        dealCategories.add("food-and-drink");
-        dealCategories.add("health-and-beauty");
-        dealCategories.add("home-and-garden");
-        dealCategories.add("men");
-        dealCategories.add("sports-and-outdoors");
-        dealCategories.add("women");
     }
 
-    public User(int userId, String firstName, String lastName, String email, String phoneNumber, String password) {
-        this.userId = userId;
+    public User(String firstName, String lastName, String email, String phoneNumber, String password) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.dealRadius = 10;
+        this.dealCategories = new ArrayList<String>();
     }
 
-    public int getUserId() {
-        return userId;
-    }
+    public User(String firstName, String lastName, String email, String phoneNumber, String lastLatitude,
+                String lastLongitude, int dealRadius, String dealCategories, String updatedAt, String createdAt) {
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.lastLatitude = Double.parseDouble(lastLatitude);
+        this.lastLongitude = Double.parseDouble(lastLongitude);
+        this.dealRadius = dealRadius;
+        this.dealCategories = new ArrayList<String>();
+        String[] categories = dealCategories.split(",");
+        for(String cat: categories)
+            this.dealCategories.add(cat);
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
 
     public String getFirstName() {
@@ -125,6 +120,26 @@ public class User {
     public ArrayList<String> getDealCategories() {
         return dealCategories;
     }
+
+    public String getDealCategoriesString() {
+
+        StringBuilder dealCategoriesSB = new StringBuilder();
+        for(String dealCategory: dealCategories) {
+            dealCategoriesSB.append(dealCategory);
+            dealCategoriesSB.append(",");
+        }
+        if(dealCategoriesSB.length()>0)
+            dealCategoriesSB.deleteCharAt(dealCategoriesSB.length()-1);
+        return dealCategoriesSB.toString();
+    }
+
+    public String getUpdatedAt() { return updatedAt;    }
+
+    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt;    }
+
+    public String getCreatedAt() { return createdAt;    }
+
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt;    }
 
     public void setDealCategories(ArrayList<String> dealCategories) {
         this.dealCategories = dealCategories;

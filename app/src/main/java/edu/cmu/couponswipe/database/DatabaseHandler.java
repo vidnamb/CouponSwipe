@@ -10,41 +10,51 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "couponswipe";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    private static final String TABLE_USERS = "create table users (user_id int, first_name varchar(255), last_name varchar(255), email varchar(255)," +
-            " password varchar(255), phone varchar(255), created_at DATE, updated_at DATE";
+    private static final String TABLE_USERS = "create table users (first_name varchar(255), " +
+            "last_name varchar(255), " +
+            "email varchar(255) primary key, " +
+            "password varchar(255), " +
+            "phone varchar(255), " +
+            "last_latitude varchar(255), " +
+            "last_longitude varchar(255), " +
+            "deal_radius int, " +
+            "deal_categories varchar(1000), " +
+            "created_at varchar(255), " +
+            "updated_at varchar(255));";
 
-    private static final String TABLE_DEALS = "create table deals (dealuuid varchar(255)," +
-            "  title varchar(255)," +
-            "  descr text," +
-            "  location varchar(255)," +
-            "  latitude varchar(255)," +
-            "  longitude varchar(255)," +
-            "  amount float," +
-            "  currency varchar(255)," +
-            "  start_date varchar(255)," +
-            "  expiry_date varchar(255)," +
-            "  category varchar(255)," +
-            "  small_url varchar(255)," +
-            "  medium_url varchar(255)," +
-            "  large_url varchar(255)," +
-            "  merchant_id varchar(255)," +
-            "  merchant_name varchar(255)," +
-            "  merchant_url varchar(255)," +
-            "  dealbuy_url varchar(255))";
+    private static final String TABLE_DEALS = "create table deals (dealuuid varchar(255) primary key, " +
+            "title varchar(255), " +
+            "descr text, " +
+            "location varchar(255), " +
+            "latitude varchar(255), " +
+            "longitude varchar(255), " +
+            "amount float, " +
+            "currency varchar(255), " +
+            "start_date varchar(255), " +
+            "expiry_date varchar(255), " +
+            "category varchar(255), " +
+            "small_url varchar(255), " +
+            "medium_url varchar(255), " +
+            "large_url varchar(255), " +
+            "merchant_id varchar(255), " +
+            "merchant_name varchar(255), " +
+            "merchant_url varchar(255), " +
+            "dealbuy_url varchar(255));";
 
     private static final String TABLE_DEAL_HISTORY = "create table history(" +
-            "  history_id int," +
-            "  user_id int," +
-            "  deal_id varchar(255)," +
-            "  action varchar(255)," +
-            "  created_at date," +
-            "  updated_at date)";
+            "email varchar(255), " +
+            "deal_id varchar(255), " +
+            "action varchar(255), " +
+            "created_at varchar(255), " +
+            "updated_at varchar(255), " +
+            "FOREIGN KEY(email) REFERENCES user(email)"+
+            "FOREIGN KEY(deal_id) REFERENCES deals(dealuuid));";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
