@@ -3,6 +3,9 @@ package edu.cmu.couponswipe.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -10,6 +13,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,21 +46,13 @@ import edu.cmu.couponswipe.model.Deal;
 import edu.cmu.couponswipe.sessions.SessionManager;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
-/**
- * MainActivity - renamed to DealStackActivity
- * activity_main.xml renamed to activity_deal_stack
- *
- */
-
 public class DealStackActivity extends Activity {
 
     public static final String TAG = DealStackActivity.class.getSimpleName();
 
-    private int currentDemoDeal = 0;    //0,1,2 represent three sample deals
-
     // https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_203792_212556_0&lat=37.398873&lng=-122.071806&radius=10&offset=0&limit=20
     private static final String apiToken = "US_AFF_0_203792_212556_0";
-    private static final int numDeals = 10;
+    private static final int numDeals = 5;
 
     // Session Manager Class
     SessionManager session;
@@ -62,6 +61,9 @@ public class DealStackActivity extends Activity {
     private LocationManager locationManager;
     private String provider;
 
+    //Deals
+    ArrayList<Deal> deals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,7 @@ public class DealStackActivity extends Activity {
 
         // Session class instance
         session = new SessionManager(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         /**
          * Call this function whenever you want to check user login
@@ -80,46 +82,42 @@ public class DealStackActivity extends Activity {
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-        // name
         String name = user.get(SessionManager.KEY_NAME);
-        // email
         String email = user.get(SessionManager.KEY_EMAIL);
+        int dealRadius = Integer.parseInt(user.get(SessionManager.KEY_RADIUS));
+        String dealCategories = user.get(SessionManager.KEY_DEAL_CATEGORIES);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         Location location = getLocation();
 
         if(location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            getDeals();
-
+            getDeals(latitude, longitude, dealRadius);
         } else {
             getDeals();
         }
-
-
-        buildSwipeCards();
     }
 
-
     //Set up Cards for Swiping
-    public void buildSwipeCards()
+    public void buildSwipeCards(ArrayList<Deal> deals)
     {
         CardContainer mCardContainer = (CardContainer) findViewById(R.id.layoutview);
-
         mCardContainer.setOrientation(Orientations.Orientation.Disordered);
-
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
 
-        CardModel card1 = new CardModel(getString(R.string.demo_coupon_title_1)+": "+getString(R.string.demo_coupon_price_1), getString(R.string.demo_coupon_store_1)+": "+getString(R.string.demo_coupon_distance_1), getResources().getDrawable(R.drawable.easter_coupon));
-        CardModel card2 = new CardModel(getString(R.string.demo_coupon_title_2)+": "+getString(R.string.demo_coupon_price_2), getString(R.string.demo_coupon_store_2)+": "+getString(R.string.demo_coupon_distance_2), getResources().getDrawable(R.drawable.omaha_steak));
-        CardModel card3 = new CardModel(getString(R.string.demo_coupon_title_3)+": "+getString(R.string.demo_coupon_price_3), getString(R.string.demo_coupon_store_3)+": "+getString(R.string.demo_coupon_distance_3), getResources().getDrawable(R.drawable.golden_gate));
-
-        adapter.add(card1);
-        adapter.add(card2);
-        adapter.add(card3);
+        for(Deal deal : deals) {
+            try {
+                CardModel card = new CardModel(deal.getDealTitle(), deal.getDealAmount(), drawableFromUrl(deal.getLargeImageUrl()));
+                adapter.add(card);
+            } catch (Exception e) {
+                Log.e(TAG, "Exception caught: ", e);
+            }
+        }
 
         mCardContainer.setAdapter(adapter);
-
     }
 
     public void openDeal()
@@ -177,32 +175,37 @@ public class DealStackActivity extends Activity {
         startActivity(intent);
     }
 
-    public ArrayList<Deal> getDeals() {
+    public void getDeals() {
         String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
+
         callDealAPI(dealUrl);
-        return new ArrayList<Deal>();
     }
 
-    public ArrayList<Deal> getDeals(ArrayList<String> dealCategories) {
+    public void getDeals(String dealCategories) {
         String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
+
         callDealAPI(dealUrl);
-        return new ArrayList<Deal>();
     }
 
-    public ArrayList<Deal> getDeals(double latitude, double longitude, int dealRadius, ArrayList<String> dealCategories) {
+    public void getDeals(double latitude, double longitude, int dealRadius) {
         String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken + "&lat=" + latitude + "&lng=" + longitude
                 + "&radius=" + dealRadius + "&offset=0&limit=" + numDeals;
 
+        callDealAPI(dealUrl);
+
+    }
+
+    public void getDeals(double latitude, double longitude, int dealRadius, String dealCategories) {
+        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken + "&lat=" + latitude + "&lng=" + longitude
+                + "&radius=" + dealRadius + "&offset=0&limit=" + numDeals;
 
         callDealAPI(dealUrl);
-        return new ArrayList<Deal>();
 
     }
 
     private void callDealAPI(String url) {
 
         if (isNetworkAvailable()) {
-            toggleRefresh();
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -213,38 +216,24 @@ public class DealStackActivity extends Activity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            toggleRefresh();
-                        }
-                    });
-//                    alertUserAboutError();
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            toggleRefresh();
-                        }
-                    });
 
                     try {
                         String jsonData = response.body().string();
-                        //Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-                            ArrayList<Deal> deals = parseDeals(jsonData);
-//                            mForecast = parseForecastDetails(jsonData);
+                            deals = parseDeals(jsonData);
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    updateDisplay();
+                                    buildSwipeCards(deals);
                                 }
                             });
                         } else {
-//                            alertUserAboutError();
+
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
@@ -260,30 +249,6 @@ public class DealStackActivity extends Activity {
         }
     }
 
-    private void toggleRefresh() {
-//        if (mProgressBar.getVisibility() == View.INVISIBLE) {
-//            mProgressBar.setVisibility(View.VISIBLE);
-//            mRefreshImageView.setVisibility(View.INVISIBLE);
-//        }
-//        else {
-//            mProgressBar.setVisibility(View.INVISIBLE);
-//            mRefreshImageView.setVisibility(View.VISIBLE);
-//        }
-    }
-
-    private void updateDisplay() {
-//        Current current = mForecast.getCurrent();
-//
-//        mTemperatureLabel.setText(current.getTemperature() + "");
-//        mTimeLabel.setText("At " + current.getFormattedTime() + " it will be");
-//        mHumidityValue.setText(current.getHumidity() + "");
-//        mPrecipValue.setText(current.getPrecipChance() + "%");
-//        mSummaryLabel.setText(current.getSummary());
-//
-//        Drawable drawable = getResources().getDrawable(current.getIconId());
-//        mIconImageView.setImageDrawable(drawable);
-    }
-
 
     private ArrayList<Deal> parseDeals(String jsonData) throws JSONException {
         JSONObject response = new JSONObject(jsonData);
@@ -295,31 +260,34 @@ public class DealStackActivity extends Activity {
             JSONObject jsonDeal = dealData.getJSONObject(i);
             Deal deal = new Deal();
 
-            deal.setDealUuid(jsonDeal.getString("uuid"));
-            deal.setDealTitle(jsonDeal.getString("announcementTitle"));
-            deal.setDealDescription(jsonDeal.getString("title"));
+            try {
+                deal.setDealUuid(jsonDeal.getString("uuid"));
+                deal.setDealTitle(jsonDeal.getString("announcementTitle"));
+                deal.setDealDescription(jsonDeal.getString("title"));
 //            deal.setDealLocation(jsonDeal.getString(""));
 //            deal.setDealLatitude(jsonDeal.getString(""));
 //            deal.setDealLongitude(jsonDeal.getString(""));
 //            deal.setDealAmount(jsonDeal.getString(""));
 //            deal.setDealCurrency(jsonDeal.getString(""));
-            deal.setDealStartDate(jsonDeal.getString("startAt"));
-            deal.setDealExpiryDate(jsonDeal.getString("endAt"));
+                deal.setDealStartDate(jsonDeal.getString("startAt"));
+                deal.setDealExpiryDate(jsonDeal.getString("endAt"));
 //            deal.setDealCategory(jsonDeal.getString(""));
-            deal.setSmallImageUrl(jsonDeal.getString("smallImageUrl"));
-            deal.setMediumImageUrl(jsonDeal.getString("mediumImageUrl"));
-            deal.setLargeImageUrl(jsonDeal.getString("largeImageUrl"));
+                deal.setSmallImageUrl(jsonDeal.getString("smallImageUrl"));
+                deal.setMediumImageUrl(jsonDeal.getString("mediumImageUrl"));
+                deal.setLargeImageUrl(jsonDeal.getString("largeImageUrl"));
 //            deal.setMerchantUuid(jsonDeal.getString(""));
 //            deal.setMerchantName(jsonDeal.getString(""));
 //            deal.setMerchantUrl(jsonDeal.getString(""));
-            deal.setDealBuyUrl(jsonDeal.getString("dealUrl")); //Options->buyUrl
+                deal.setDealBuyUrl(jsonDeal.getString("dealUrl")); //Options->buyUrl
 
+                deals.add(deal);
+            } catch (Exception e) {
+                Log.e(TAG, "Exception caught: ", e);
+            }
 
-
-            deals.add(deal);
         }
 
-        return new ArrayList<Deal>();
+        return deals;
     }
 
 
@@ -338,13 +306,41 @@ public class DealStackActivity extends Activity {
     protected Location getLocation() {
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // Define the criteria how to select the locatioin provider -> use
-        // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(provider);
 
         return location;
+    }
+
+    public Drawable drawableFromUrl(String url) throws IOException {
+        Bitmap x;
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        x = BitmapFactory.decodeStream(input);
+        return scaleImage(new BitmapDrawable(x), 20);
+    }
+
+    public Drawable scaleImage (Drawable image, float scaleFactor) {
+
+        if ((image == null) || !(image instanceof BitmapDrawable)) {
+            return image;
+        }
+
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+
+        int sizeX = Math.round(image.getIntrinsicWidth() * scaleFactor);
+        int sizeY = Math.round(image.getIntrinsicHeight() * scaleFactor);
+
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, sizeX, sizeY, false);
+
+        image = new BitmapDrawable(getResources(), bitmapResized);
+
+        return image;
+
     }
 
 }
