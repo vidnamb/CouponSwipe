@@ -266,9 +266,6 @@ public class DealStackActivity extends Activity {
                 deal.setDealTitle(jsonDeal.getString("announcementTitle"));
                 deal.setDealDescription(jsonDeal.getString("title"));
 
-                JSONArray divisionData = jsonDeal.getJSONArray("division");
-
-
                 deal.setDealStartDate(jsonDeal.getString("startAt"));
                 deal.setDealExpiryDate(jsonDeal.getString("endAt"));
 //              deal.setDealCategory(jsonDeal.getString(""));
@@ -277,10 +274,10 @@ public class DealStackActivity extends Activity {
                 deal.setLargeImageUrl(jsonDeal.getString("largeImageUrl"));
 
                 //Merchant Details
-                JSONArray merchantData = jsonDeal.getJSONArray("merchant");
-                deal.setMerchantUuid(merchantData.getJSONObject(0).getString("uuid"));
-                deal.setMerchantName(merchantData.getJSONObject(0).getString("name"));
-                deal.setMerchantUrl(merchantData.getJSONObject(0).getString("websiteUrl"));
+                JSONObject merchantData = jsonDeal.getJSONObject("merchant");
+                deal.setMerchantUuid(merchantData.getString("uuid"));
+                deal.setMerchantName(merchantData.getString("name"));
+                deal.setMerchantUrl(merchantData.getString("websiteUrl"));
 
                 //Deal Details URL
                 //deal.setDealBuyUrl(jsonDeal.getString("dealUrl"));
@@ -294,9 +291,9 @@ public class DealStackActivity extends Activity {
                 deal.setDealLatitude(locationData.getJSONObject(0).getString("lat"));
                 deal.setDealLongitude(locationData.getJSONObject(0).getString("lng"));
 
-                JSONArray priceData = optionsData.getJSONObject(0).getJSONArray("price");
-                deal.setDealAmount(priceData.getJSONObject(0).getString("formattedAmount"));
-                deal.setDealCurrency(priceData.getJSONObject(0).getString("currencyCode"));
+                JSONObject priceData = optionsData.getJSONObject(0).getJSONObject("price");
+                deal.setDealAmount(priceData.getString("formattedAmount"));
+                deal.setDealCurrency(priceData.getString("currencyCode"));
 
 
 
