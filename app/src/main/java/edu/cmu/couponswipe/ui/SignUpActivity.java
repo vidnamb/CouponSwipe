@@ -127,7 +127,6 @@ public class SignUpActivity extends Activity {
 
             ResponseHandler responseHandler = new BasicResponseHandler();
             String response = (String) httpclient.execute(httpost, responseHandler);
-System.out.println();
             Intents.openDealStack(this);
         }catch(JSONException e){
             Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
