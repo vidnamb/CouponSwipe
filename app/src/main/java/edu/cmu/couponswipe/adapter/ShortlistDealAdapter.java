@@ -1,6 +1,7 @@
 package edu.cmu.couponswipe.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -56,6 +63,7 @@ public class ShortlistDealAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
+      final  Deal deal = deals[position];
 
         if(convertView == null) {
             // brand new view
@@ -75,7 +83,7 @@ public class ShortlistDealAdapter extends BaseAdapter{
         holder.viewDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
+                System.out.println("********"+deal.getDealTitle());
 
             }
         });
@@ -83,6 +91,7 @@ public class ShortlistDealAdapter extends BaseAdapter{
         holder.deleteDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                String id = deal.getDealUuid();
 
 
             }
@@ -91,13 +100,35 @@ public class ShortlistDealAdapter extends BaseAdapter{
         holder.buyDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url("http://10.0.3.2:8080/history/delete/"+ deal.getDealUuid() +"/xyz@a.com")
+                        .build();
 
+                Call call = client.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+                        //handle failure
+                        e.printStackTrace();
+                        System.out.println("************** fail");
 
-            }
+                    }
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        System.out.println("*********** deleted");
+                    }
+                });
+
+                    }
         });
 
-        Deal deal = deals[position];
-        holder.dealIconImageView.setImageResource(R.drawable.pizza);
+        try {
+            holder.dealIconImageView.setImageBitmap(BitmapFactory.decodeStream(new URL("https://s-media-cache-ak0.pinimg.com/236x/22/c9/1e/22c91e92d24adeba4c329c0034ddbbbf.jpg").openConnection().getInputStream()));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
         holder.dealTitleTextView.setText(deal.getDealTitle());
 
         return convertView;
@@ -112,20 +143,5 @@ public class ShortlistDealAdapter extends BaseAdapter{
 
     }
 
-//    private Bitmap getImageBitmap(String url) {
-//        Bitmap bm = null;
-//        try {
-//            URL aURL = new URL(url);
-//            URLConnection conn = aURL.openConnection();
-//            conn.connect();
-//            InputStream is = conn.getInputStream();
-//            BufferedInputStream bis = new BufferedInputStream(is);
-//            bm = BitmapFactory.decodeStream(bis);
-//            bis.close();
-//            is.close();
-//        } catch (IOException e) {
-//            Log.e(TAG, "Error getting bitmap", e);
-//        }
-//        return bm;
-//    }
+
 }

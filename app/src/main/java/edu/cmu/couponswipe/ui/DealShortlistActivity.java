@@ -1,23 +1,12 @@
 package edu.cmu.couponswipe.ui;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -34,9 +23,7 @@ import java.util.ArrayList;
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.adapter.ShortlistDealAdapter;
 import edu.cmu.couponswipe.model.Deal;
-import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.intents.Intents;
-import edu.cmu.couponswipe.ws.remote.DS;
 
 public class DealShortlistActivity extends ListActivity {
 
@@ -57,18 +44,11 @@ public class DealShortlistActivity extends ListActivity {
         getDeals();
 
         System.out.println(shortlistedDealsList.size());
-/*
-        Deal[] shortlistedDeals = shortlistedDealsList.toArray(new Deal[shortlistedDealsList.size()]);
-
-        ShortlistDealAdapter adapter = new ShortlistDealAdapter(this, shortlistedDeals);
-        setListAdapter(adapter);
-        */
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_deal_shortlist, menu);
         return true;
     }
