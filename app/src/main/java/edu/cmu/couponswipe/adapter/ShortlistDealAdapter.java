@@ -54,6 +54,7 @@ public class ShortlistDealAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ViewHolder holder;
 
         if(convertView == null) {
@@ -62,14 +63,38 @@ public class ShortlistDealAdapter extends BaseAdapter{
             holder = new ViewHolder();
             holder.dealIconImageView = (ImageView) convertView.findViewById(R.id.dealIconImageView);
             holder.dealTitleTextView = (TextView) convertView.findViewById(R.id.dealTitleTextView);
-//            holder.deleteDealButton = (Button) convertView.findViewById(R.id.deleteDealButton);
-//            holder.viewDealButton = (Button) convertView.findViewById(R.id.viewDealButton);
-//            holder.buyDealButton = (Button) convertView.findViewById(R.id.buyDealButton);
+            holder.deleteDealButton = (Button) convertView.findViewById(R.id.deleteDealButton);
+            holder.viewDealButton = (Button) convertView.findViewById(R.id.viewDealButton);
+            holder.buyDealButton = (Button) convertView.findViewById(R.id.buyDealButton);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.viewDealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+
+            }
+        });
+
+        holder.deleteDealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+
+            }
+        });
+
+        holder.buyDealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+
+            }
+        });
 
         Deal deal = deals[position];
         holder.dealIconImageView.setImageResource(R.drawable.pizza);
@@ -81,9 +106,9 @@ public class ShortlistDealAdapter extends BaseAdapter{
     private static class ViewHolder {
         ImageView dealIconImageView;
         TextView dealTitleTextView;
-//        Button deleteDealButton;
-//        Button viewDealButton;
-//        Button buyDealButton;
+        Button deleteDealButton;
+        Button viewDealButton;
+        Button buyDealButton;
 
     }
 
