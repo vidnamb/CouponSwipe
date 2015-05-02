@@ -6,11 +6,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import edu.cmu.couponswipe.R;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
 public class UserProfileActivity extends Activity {
+
+    TextView firstNameTV;
+    TextView lastNameTV;
+    TextView phoneTV;
+    TextView emailTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +25,16 @@ public class UserProfileActivity extends Activity {
         setContentView(R.layout.activity_user_profile);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+         firstNameTV = (TextView) findViewById(R.id.first_name);
+        lastNameTV = (TextView) findViewById(R.id.last_name);
+        phoneTV = (TextView) findViewById(R.id.user_phone);
+        emailTV = (TextView) findViewById(R.id.user_signup_email);
+
+        firstNameTV.setText(Current.firstName);
+        lastNameTV.setText(Current.lastName);
+        phoneTV.setText(Current.phone);
+        emailTV.setText(Current.email);
     }
 
 

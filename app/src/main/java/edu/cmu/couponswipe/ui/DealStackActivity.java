@@ -43,6 +43,7 @@ import java.util.HashMap;
 
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.model.Deal;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.sessions.SessionManager;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
@@ -52,7 +53,7 @@ public class DealStackActivity extends Activity {
 
     // https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_203792_212556_0&lat=37.398873&lng=-122.071806&radius=10&offset=0&limit=20
     private static final String apiToken = "US_AFF_0_203792_212556_0";
-    private static final int numDeals = 5;
+    private static final int numDeals = 10;
 
     // Session Manager Class
     SessionManager session;
@@ -72,7 +73,7 @@ public class DealStackActivity extends Activity {
         // Session class instance
         session = new SessionManager(getApplicationContext());
         // Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-
+        System.out.println("**************"+ Current.email);
         /**
          * Call this function whenever you want to check user login
          * This will redirect user to LoginActivity is he is not
@@ -82,7 +83,7 @@ public class DealStackActivity extends Activity {
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-        String name = user.get(SessionManager.KEY_NAME);
+        String name = user.get(SessionManager.KEY_LASTNAME);
         String email = user.get(SessionManager.KEY_EMAIL);
         int dealRadius = Integer.parseInt(user.get(SessionManager.KEY_RADIUS));
         String dealCategories = user.get(SessionManager.KEY_DEAL_CATEGORIES);
@@ -177,6 +178,7 @@ public class DealStackActivity extends Activity {
 
     public void getDeals() {
         String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
+        System.out.println("************** getdeals");
 
         callDealAPI(dealUrl);
     }
@@ -206,6 +208,7 @@ public class DealStackActivity extends Activity {
     private void callDealAPI(String url) {
 
         if (isNetworkAvailable()) {
+            System.out.println("**************  network");
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -245,6 +248,8 @@ public class DealStackActivity extends Activity {
             });
         }
         else {
+            System.out.println("************** No network");
+
             Toast.makeText(this, getString(R.string.network_unavailable_message),
                     Toast.LENGTH_LONG).show();
         }
@@ -301,6 +306,7 @@ public class DealStackActivity extends Activity {
                 deals.add(deal);
             } catch (Exception e) {
                 Log.e(TAG, "Exception caught: ", e);
+                e.printStackTrace();
             }
 
         }
@@ -339,7 +345,7 @@ public class DealStackActivity extends Activity {
         InputStream input = connection.getInputStream();
 
         x = BitmapFactory.decodeStream(input);
-        return scaleImage(new BitmapDrawable(x), 20);
+        return scaleImage(new BitmapDrawable(x), 1);
     }
 
     public Drawable scaleImage (Drawable image, float scaleFactor) {

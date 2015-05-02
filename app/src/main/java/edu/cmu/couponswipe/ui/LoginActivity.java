@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.cmu.couponswipe.R;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
 public class LoginActivity extends Activity {
@@ -84,7 +85,10 @@ public class LoginActivity extends Activity {
                     }
                     else if(obj.getString("password").equals(password)){
                         Toast.makeText(getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
-                        loginSuccess = true;
+                        Current.firstName = obj.getString("firstName");
+                        Current.lastName = obj.getString("lastName");
+                        Current.email = obj.getString("email");
+                        Current.phone = obj.getString("phoneNumber");
                         navigatetoDealStackActivity();
                     }
                     // Else display error message

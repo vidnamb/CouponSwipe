@@ -40,6 +40,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 import edu.cmu.couponswipe.R;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
 public class SignUpActivity extends Activity {
@@ -127,6 +128,10 @@ public class SignUpActivity extends Activity {
 
             ResponseHandler responseHandler = new BasicResponseHandler();
             String response = (String) httpclient.execute(httpost, responseHandler);
+            Current.firstName = obj.getString("firstName");
+            Current.lastName = obj.getString("lastName");
+            Current.email = obj.getString("email");
+            Current.phone = obj.getString("phoneNumber");
             Intents.openDealStack(this);
         }catch(JSONException e){
             Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();

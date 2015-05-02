@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import edu.cmu.couponswipe.R;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
 public class EditProfileActivity extends Activity {
@@ -49,6 +50,11 @@ public class EditProfileActivity extends Activity {
         lastNameET = (EditText)findViewById(R.id.last_name);
         emailET = (EditText)findViewById(R.id.user_signup_email);
         phoneNumberET = (EditText)findViewById(R.id.user_phone);
+
+        firstNameET.setText(Current.firstName);
+        lastNameET.setText(Current.lastName);
+        emailET.setText(Current.email);
+        phoneNumberET.setText(Current.phone);
     }
 
 
