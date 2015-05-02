@@ -30,15 +30,25 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import edu.cmu.couponswipe.R;
@@ -109,6 +119,10 @@ public class DealStackActivity extends Activity {
         mCardContainer.setOrientation(Orientations.Orientation.Disordered);
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         for(final Deal deal : deals) {
             try {
                 CardModel card = new CardModel(deal.getDealTitle(), deal.getDealAmount(), drawableFromUrl(deal.getLargeImageUrl()));
@@ -119,7 +133,78 @@ public class DealStackActivity extends Activity {
                     public void onLike() {
                         Log.d("Swipeable Card", "I liked it");
                         System.out.println("****Liked***");
-                        System.out.println(deal.toString());
+                        try{
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                            Date date = new Date();
+                            System.out.println(dateFormat.format(date));
+                            JSONObject objHistory = new JSONObject();
+                            objHistory.put("action", "shortlisted");
+                            objHistory.put("createdAt", dateFormat.format(date));
+                            objHistory.put("dealUuid", deal.getDealUuid());
+                            objHistory.put("email", Current.email);
+                            objHistory.put("updatedAt", dateFormat.format(date));
+                            String history = objHistory.toString();
+
+                            DefaultHttpClient httpclientHistory = new DefaultHttpClient();
+                            HttpPost httpostHistory = new HttpPost("http://10.0.3.2:8080/history/add");
+                            StringEntity seHist = new StringEntity(history);
+
+                            httpostHistory.setEntity(seHist);
+                            httpostHistory.setHeader("Accept", "application/json");
+                            httpostHistory.setHeader("Content-type", "application/json");
+
+                            ResponseHandler responseHandlerHist = new BasicResponseHandler();
+                            String responseHistory = (String) httpclientHistory.execute(httpostHistory, responseHandlerHist);
+
+
+                            JSONObject obj = new JSONObject();
+                        obj.put("dealAmount",deal.getDealAmount());
+                        obj.put("dealBuyUrl", deal.getDealBuyUrl());
+                        obj.put("dealCategory", deal.getDealCategory());
+                        obj.put("dealCurrency", deal.getDealCurrency());
+                        obj.put("dealDescription", deal.getDealDescription());
+                        obj.put("dealExpiryDate", deal.getDealExpiryDate());
+                        obj.put("dealLatitude", deal.getDealLatitude());
+                        obj.put("dealLocation",deal.getDealLocation());
+                        obj.put("dealLongitude", deal.getDealLongitude());
+                        obj.put("dealStartDate", deal.getDealStartDate());
+                        obj.put("dealTitle", deal.getDealTitle());
+                        obj.put("dealUuid", deal.getDealUuid());
+                        obj.put("largeImageUrl", deal.getLargeImageUrl());
+                        obj.put("mediumImageUrl", deal.getMediumImageUrl());
+                        obj.put("merchantName", deal.getLargeImageUrl());
+                        obj.put("merchantUrl", deal.getMerchantName());
+                        obj.put("merchantUuid", deal.getMerchantUuid());
+                        obj.put("smallImageUrl", deal.getSmallImageUrl());
+
+                        String deal = obj.toString();
+                        DefaultHttpClient httpclient = new DefaultHttpClient();
+                        HttpPost httpost = new HttpPost("http://10.0.3.2:8080/deal/add");
+                        StringEntity se = new StringEntity(deal);
+
+                        httpost.setEntity(se);
+                        httpost.setHeader("Accept", "application/json");
+                        httpost.setHeader("Content-type", "application/json");
+
+                        ResponseHandler responseHandler = new BasicResponseHandler();
+                        String response = (String) httpclient.execute(httpost, responseHandler);
+                        }catch(JSONException e){
+                            Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
+
+                            e.printStackTrace();
+                        } catch (ClientProtocolException e) {
+                            Toast.makeText(getApplicationContext(), "UserName already taken", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            System.out.println("#######");
+
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            System.out.println("%%%%%");
+                            Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
+
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
