@@ -113,6 +113,19 @@ public class DealStackActivity extends Activity {
             try {
                 CardModel card = new CardModel(deal.getDealTitle(), deal.getDealAmount(), drawableFromUrl(deal.getLargeImageUrl()));
                 adapter.add(card);
+
+                card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
+                    @Override
+                    public void onLike() {
+                        Log.d("Swipeable Card", "I liked it");
+                    }
+
+                    @Override
+                    public void onDislike() {
+                        Log.d("Swipeable Card", "I did not liked it");
+                    }
+                });
+
             } catch (Exception e) {
                 Log.e(TAG, "Exception caught: ", e);
             }
