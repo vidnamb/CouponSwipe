@@ -69,16 +69,16 @@ public class ShortlistDealAdapter extends BaseAdapter{
             // brand new view
             convertView = LayoutInflater.from(context).inflate(R.layout.deal_shortlist_item, null);
             holder = new ViewHolder();
-            holder.dealIconImageView = (ImageView) convertView.findViewById(R.id.dealIconImageView);
-            holder.dealTitleTextView = (TextView) convertView.findViewById(R.id.dealTitleTextView);
-            holder.deleteDealButton = (Button) convertView.findViewById(R.id.deleteDealButton);
-            holder.viewDealButton = (Button) convertView.findViewById(R.id.viewDealButton);
-            holder.buyDealButton = (Button) convertView.findViewById(R.id.buyDealButton);
-
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.dealIconImageView = (ImageView) convertView.findViewById(R.id.dealIconImageView);
+        holder.dealTitleTextView = (TextView) convertView.findViewById(R.id.dealTitleTextView);
+        holder.deleteDealButton = (Button) convertView.findViewById(R.id.deleteDealButton);
+        holder.viewDealButton = (Button) convertView.findViewById(R.id.viewDealButton);
+        holder.buyDealButton = (Button) convertView.findViewById(R.id.buyDealButton);
 
         holder.viewDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
