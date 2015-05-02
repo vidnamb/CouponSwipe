@@ -109,7 +109,7 @@ public class DealStackActivity extends Activity {
         mCardContainer.setOrientation(Orientations.Orientation.Disordered);
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
 
-        for(Deal deal : deals) {
+        for(final Deal deal : deals) {
             try {
                 CardModel card = new CardModel(deal.getDealTitle(), deal.getDealAmount(), drawableFromUrl(deal.getLargeImageUrl()));
                 adapter.add(card);
@@ -118,10 +118,14 @@ public class DealStackActivity extends Activity {
                     @Override
                     public void onLike() {
                         Log.d("Swipeable Card", "I liked it");
+                        System.out.println("****Liked***");
+                        System.out.println(deal.toString());
                     }
 
                     @Override
                     public void onDislike() {
+                        System.out.println("****disLiked***");
+
                         Log.d("Swipeable Card", "I did not liked it");
                     }
                 });

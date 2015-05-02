@@ -107,6 +107,9 @@ public class EditProfileActivity extends Activity {
 
             ResponseHandler responseHandler = new BasicResponseHandler();
             String response = (String) httpclient.execute(httpost, responseHandler);
+            Current.firstName = fName;
+            Current.lastName = lName;
+            Current.phone = phone;
             Intents.openDealStack(this);
         }catch(JSONException e){
             Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();

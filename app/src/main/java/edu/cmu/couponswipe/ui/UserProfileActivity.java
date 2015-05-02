@@ -65,6 +65,7 @@ public class UserProfileActivity extends Activity {
     }
 
     public void logout(View view){
+        Current.logout();
         Intents.openLoginPage(this);
     }
 }
