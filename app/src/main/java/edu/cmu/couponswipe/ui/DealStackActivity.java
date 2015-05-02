@@ -402,10 +402,9 @@ public class DealStackActivity extends Activity {
                 deal.setDealAmount(priceData.getString("formattedAmount"));
                 deal.setDealCurrency(priceData.getString("currencyCode"));
 
-
-
-
                 deals.add(deal);
+
+
             } catch (Exception e) {
                 Log.e(TAG, "Exception caught: ", e);
                 e.printStackTrace();
