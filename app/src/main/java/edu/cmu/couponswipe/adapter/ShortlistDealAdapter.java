@@ -129,14 +129,14 @@ public class ShortlistDealAdapter extends BaseAdapter{
             @Override
             public void onClick(View arg0) {
 
-                Uri uriUrl = Uri.parse("http://www.groupon.com/");
+                Uri uriUrl = Uri.parse(deal.getDealBuyUrl());
                 Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                 ApplicationContextProvider.getDealShortlistActivityContext().startActivity(launchBrowser);
                     }
         });
 
         try {
-            holder.dealIconImageView.setImageBitmap(BitmapFactory.decodeStream(new URL("https://s-media-cache-ak0.pinimg.com/236x/22/c9/1e/22c91e92d24adeba4c329c0034ddbbbf.jpg").openConnection().getInputStream()));
+            holder.dealIconImageView.setImageBitmap(BitmapFactory.decodeStream(new URL(deal.getMediumImageUrl()).openConnection().getInputStream()));
         }catch (Exception ex){
             ex.printStackTrace();
         }

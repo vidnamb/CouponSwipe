@@ -117,10 +117,12 @@ public class DealShortlistActivity extends ListActivity {
                                     JSONObject deal = (JSONObject) deals.get(i);
                                     Deal d = new Deal();
                                     d.setDealUuid(deal.getString("dealId"));
-
                                     d.setDealTitle(deal.getString("dealTitle"));
+                                    d.setDealAmount(deal.getString("dealAmount"));
+                                    d.setDealBuyUrl(deal.getString("dealBuyUrl"));
+                                    d.setLargeImageUrl(deal.getString("dealLargeUrl"));
+                                    d.setMediumImageUrl(deal.getString("dealMediumUrl"));
                                     shortlistedDealsList.add(d);
-                                    System.out.println(deal.getString("dealId"));
                                 }
                                 Deal[] shortlistedDeals = shortlistedDealsList.toArray(new Deal[shortlistedDealsList.size()]);
 
