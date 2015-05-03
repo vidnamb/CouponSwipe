@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import edu.cmu.couponswipe.database.DatabaseHandler;
@@ -72,6 +73,21 @@ public class DealHistoryDAO {
         }
 
         return null;
+    }
+
+    public ArrayList<String> getAllDealIdsForEmail(String email)
+    {
+        Cursor cursor = database.query("history", new String[] {"deal_id"},
+                "email="+email, null, null, null, null);
+
+        ArrayList<String> dealIDs = new ArrayList<String>();
+
+        while(cursor.moveToNext())
+        {
+            dealIDs.add(cursor.getString(cursor.getColumnIndex("deal_id")));
+        }
+
+        return dealIDs;
     }
 
     public void deleteDealHistory(DealHistory dealHistory) {
