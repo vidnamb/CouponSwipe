@@ -389,7 +389,7 @@ public class DealStackActivity extends Activity {
         InputStream input = connection.getInputStream();
 
         x = BitmapFactory.decodeStream(input);
-        return scaleImage(new BitmapDrawable(x), 1);
+        return scaleImage(new BitmapDrawable(x), 3);
     }
 
     public Drawable scaleImage(Drawable image, float scaleFactor) {
