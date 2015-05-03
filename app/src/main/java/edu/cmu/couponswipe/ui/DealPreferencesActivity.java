@@ -6,8 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SeekBar;
 
 import edu.cmu.couponswipe.R;
+import edu.cmu.couponswipe.sessions.Current;
 
 public class DealPreferencesActivity extends Activity {
 
@@ -30,6 +32,25 @@ public class DealPreferencesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_preferences);
 
+        SeekBar seekBar = (SeekBar) findViewById(R.id.radiusSeekBar);
+
+        seekBar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        Current.prefDist = progress;
+                    }
+                }
+        );
+        
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         dealCategoriesListView = (ListView) findViewById(R.id.dealCategoriesListView);

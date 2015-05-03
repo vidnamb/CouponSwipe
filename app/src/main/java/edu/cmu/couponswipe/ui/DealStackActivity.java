@@ -86,25 +86,6 @@ public class DealStackActivity extends Activity {
 
         ApplicationContextProvider.setDealStackActivityContext(this);
 
-        SeekBar seekBar = (SeekBar) findViewById(R.id.radiusSeekBar);
-
-        seekBar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-                    }
-
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        Current.prefDist = progress;
-                    }
-                }
-        );
-        
         // Session class instance
         session = new SessionManager(getApplicationContext());
         // Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
