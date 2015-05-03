@@ -1,9 +1,18 @@
 package edu.cmu.couponswipe.ui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import edu.cmu.couponswipe.R;
 
@@ -15,7 +24,27 @@ public class ViewDealActivity extends Activity {
         setContentView(R.layout.activity_view_deal);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        String deal_title = intent.getExtras().getString("DealTitle");
+        String deal_amount = intent.getExtras().getString("DealAmount");
+        String deal_image_url = intent.getExtras().getString("DealImage");
+
+        TextView titleTextView = (TextView) findViewById(R.id.TitleTextView);
+        TextView amountTextView = (TextView) findViewById(R.id.AmountTextView);
+        ImageView imageView = (ImageView) findViewById(R.id.ImageView);
+
+        titleTextView.setText(deal_title);
+        amountTextView.setText(deal_amount);
+
+        try {
+            imageView.setImageBitmap(BitmapFactory.decodeStream(new URL(deal_image_url).openConnection().getInputStream()));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
     }
+
 
 
     @Override

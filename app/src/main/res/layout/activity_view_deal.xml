@@ -38,7 +38,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
+                android:id="@+id/ImageView"
                 android:layout_gravity="center_horizontal|top"
                 android:src="@drawable/easter_coupon"
                 android:longClickable="false"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Half Off Easter Treats from Cherry Moon Farms"
-                    android:id="@+id/textView2"
+                    android:id="@+id/TitleTextView"
                     android:singleLine="false"
                     android:textSize="30dp"
                     android:layout_gravity="top" />
@@ -67,26 +67,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Cherry Moon Farms"
-                    android:id="@+id/textView3"
-                    android:textSize="25dp"
-                    android:layout_gravity="top" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="12 miles away"
-                    android:id="@+id/textView5"
-                    android:textSize="25dp"
-                    android:layout_gravity="top" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="$15"
-                    android:id="@+id/textView4"
+                    android:id="@+id/AmountTextView"
                     android:layout_gravity="right|top"
                     android:textSize="25dp" />
 
