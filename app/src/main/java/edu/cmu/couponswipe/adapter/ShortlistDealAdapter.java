@@ -28,6 +28,8 @@ import java.net.URLConnection;
 
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.model.Deal;
+import edu.cmu.couponswipe.ui.ApplicationContextProvider;
+import edu.cmu.couponswipe.ui.ViewDealActivity;
 
 /**
  * Created by lloyddsilva on 4/4/15.
@@ -85,6 +87,8 @@ public class ShortlistDealAdapter extends BaseAdapter{
             public void onClick(View arg0) {
                 System.out.println("********"+deal.getDealTitle());
 
+//                Intent intentToViewDeal = new Intent(ApplicationContextProvider.getDealShortlistActivityContext(), ViewDealActivity.class);
+//                ApplicationContextProvider.getDealShortlistActivityContext().startActivity(intentToViewDeal);
             }
         });
 

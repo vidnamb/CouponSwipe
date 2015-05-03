@@ -36,6 +36,8 @@ public class DealShortlistActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_shortlist);
 
+        ApplicationContextProvider.setDealShortlistActivityContext(this);
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
