@@ -35,7 +35,8 @@
             android:layout_below="@+id/dealIconImageView"
             android:layout_alignBottom="@+id/linearLayout"
             android:layout_toStartOf="@+id/linearLayout"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:textColor="#ff000000" />
 
         <LinearLayout
             android:orientation="horizontal"
