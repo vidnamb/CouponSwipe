@@ -3,6 +3,7 @@ package edu.cmu.couponswipe.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.model.Deal;
 import edu.cmu.couponswipe.ui.ApplicationContextProvider;
 import edu.cmu.couponswipe.ui.DealShortlistActivity;
+import edu.cmu.couponswipe.ui.ViewDealActivity;
 
 /**
  * Created by lloyddsilva on 4/4/15.
@@ -81,8 +83,14 @@ public class ShortlistDealAdapter extends BaseAdapter{
             @Override
             public void onClick(View arg0) {
 
-//                Intent intentToViewDeal = new Intent(ApplicationContextProvider.getDealShortlistActivityContext(), ViewDealActivity.class);
-//                ApplicationContextProvider.getDealShortlistActivityContext().startActivity(intentToViewDeal);
+                Intent intentToViewDeal = new Intent(ApplicationContextProvider.getDealShortlistActivityContext(), ViewDealActivity.class);
+
+                intentToViewDeal.putExtra("DealTitle", deal.getDealTitle());
+                intentToViewDeal.putExtra("DealAmount", deal.getDealAmount());
+                intentToViewDeal.putExtra("DealImage", deal.getLargeImageUrl());
+
+                ApplicationContextProvider.getDealShortlistActivityContext().startActivity(intentToViewDeal);
+
             }
         });
 
@@ -121,6 +129,9 @@ public class ShortlistDealAdapter extends BaseAdapter{
             @Override
             public void onClick(View arg0) {
 
+                Uri uriUrl = Uri.parse("http://www.groupon.com/");
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                ApplicationContextProvider.getDealShortlistActivityContext().startActivity(launchBrowser);
                     }
         });
 
