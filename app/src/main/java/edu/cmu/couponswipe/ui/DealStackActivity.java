@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -86,26 +87,30 @@ public class DealStackActivity extends Activity {
 
         ApplicationContextProvider.setDealStackActivityContext(this);
 
-        // Session class instance
-        session = new SessionManager(getApplicationContext());
-        // Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-        System.out.println("**************"+ Current.email);
-        /**
-         * Call this function whenever you want to check user login
-         * This will redirect user to LoginActivity is he is not
-         * logged in
-         * */
-        session.checkLogin();
+        SeekBar seekBar = (SeekBar) findViewById(R.id.radiusSeekBar);
 
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
-        String name = user.get(SessionManager.KEY_LASTNAME);
-        String email = user.get(SessionManager.KEY_EMAIL);
-        int dealRadius = Integer.parseInt(user.get(SessionManager.KEY_RADIUS));
-        String dealCategories = user.get(SessionManager.KEY_DEAL_CATEGORIES);
+        seekBar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        Current.prefDist = progress;
+                    }
+                }
+        );
+        
 
 
-        dealRadius = Current.prefDist;
+
+
+        int dealRadius = Current.prefDist;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -114,8 +119,11 @@ public class DealStackActivity extends Activity {
         if(location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
+            System.out.println("**********"+latitude);
             getDeals(latitude, longitude, dealRadius);
         } else {
+            System.out.println("**********sdkfjhsd");
+           // getDeals(37.38, -122.08, 100);
             getDeals();
         }
     }

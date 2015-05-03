@@ -25,7 +25,14 @@ public class DealPreferencesActivity extends Activity {
             "Gift Ideas"
     };
 
+
     ListView dealCategoriesListView;
+
+
+    public void getRadius(){
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,8 @@ public class DealPreferencesActivity extends Activity {
         );
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         dealCategoriesListView = (ListView) findViewById(R.id.dealCategoriesListView);
         dealCategoriesListView.setChoiceMode(dealCategoriesListView.CHOICE_MODE_MULTIPLE);
