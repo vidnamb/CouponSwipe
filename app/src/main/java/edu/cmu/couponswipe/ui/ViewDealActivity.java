@@ -9,9 +9,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.cmu.couponswipe.R;
@@ -39,12 +36,11 @@ public class ViewDealActivity extends Activity {
 
         try {
             imageView.setImageBitmap(BitmapFactory.decodeStream(new URL(deal_image_url).openConnection().getInputStream()));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
-
 
 
     @Override

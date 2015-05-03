@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -71,77 +72,76 @@ public class DealShortlistActivity extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void viewDeal(View view)
-    {
+    public void viewDeal(View view) {
         Intents.openDeal(this);
     }
 
     public void getDeals() {
-        String dealUrl = "http://10.0.3.2:8080/history/get/"+ Current.email;
+        String dealUrl = "http://10.0.3.2:8080/history/get/" + Current.email;
 
         callDealAPI(dealUrl);
     }
 
     private void callDealAPI(String url) {
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
 
-            Call call = client.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    //handle failure
-                    e.printStackTrace();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                //handle failure
+                e.printStackTrace();
 
-                }
+            }
 
-                @Override
-                public void onResponse(Response response) throws IOException {
+            @Override
+            public void onResponse(Response response) throws IOException {
 
-                    try {
+                try {
 
-                        String jsonData = response.body().string();
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    String jsonData = response.body().string();
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
-                        StrictMode.setThreadPolicy(policy);
-                        if (response.isSuccessful()) {
-                            try {
-                                JSONObject obj = new JSONObject(jsonData);
-                                JSONArray deals = obj.getJSONArray("deals");
+                    StrictMode.setThreadPolicy(policy);
+                    if (response.isSuccessful()) {
+                        try {
+                            JSONObject obj = new JSONObject(jsonData);
+                            JSONArray deals = obj.getJSONArray("deals");
 
-                                for(int i=0; i<deals.length(); i++){
-                                    JSONObject deal = (JSONObject) deals.get(i);
-                                    Deal d = new Deal();
-                                    d.setDealUuid(deal.getString("dealId"));
-                                    d.setDealTitle(deal.getString("dealTitle"));
-                                    d.setDealAmount(deal.getString("dealAmount"));
-                                    d.setDealBuyUrl(deal.getString("dealBuyUrl"));
-                                    d.setLargeImageUrl(deal.getString("dealLargeUrl"));
-                                    d.setMediumImageUrl(deal.getString("dealMediumUrl"));
-                                    shortlistedDealsList.add(d);
-                                }
-
-                                Deal[] shortlistedDeals = shortlistedDealsList.toArray(new Deal[shortlistedDealsList.size()]);
-
-                                ShortlistDealAdapter adapter = new ShortlistDealAdapter(getApplicationContext(), shortlistedDeals);
-                                setListAdapter(adapter);
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-
+                            for (int i = 0; i < deals.length(); i++) {
+                                JSONObject deal = (JSONObject) deals.get(i);
+                                Deal d = new Deal();
+                                d.setDealUuid(deal.getString("dealId"));
+                                d.setDealTitle(deal.getString("dealTitle"));
+                                d.setDealAmount(deal.getString("dealAmount"));
+                                d.setDealBuyUrl(deal.getString("dealBuyUrl"));
+                                d.setLargeImageUrl(deal.getString("dealLargeUrl"));
+                                d.setMediumImageUrl(deal.getString("dealMediumUrl"));
+                                shortlistedDealsList.add(d);
                             }
 
-                        } else {
+                            Deal[] shortlistedDeals = shortlistedDealsList.toArray(new Deal[shortlistedDealsList.size()]);
+
+                            ShortlistDealAdapter adapter = new ShortlistDealAdapter(getApplicationContext(), shortlistedDeals);
+                            setListAdapter(adapter);
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
 
                         }
-                    } catch (IOException e) {
-                        Log.e(TAG, "Exception caught: ", e);
+
+                    } else {
+
                     }
+                } catch (IOException e) {
+                    Log.e(TAG, "Exception caught: ", e);
                 }
-            });
+            }
+        });
 
     }
 }

@@ -60,19 +60,19 @@ public class LoginActivity extends Activity {
     }
 
 
-    public void login(View view){
-        emailET = (EditText)findViewById(R.id.userEmailEditText);
-        pwdET = (EditText)findViewById(R.id.userPasswordEditText);
+    public void login(View view) {
+        emailET = (EditText) findViewById(R.id.userEmailEditText);
+        pwdET = (EditText) findViewById(R.id.userPasswordEditText);
         String email = emailET.getText().toString();
         String password = pwdET.getText().toString();
         RequestParams params = new RequestParams();
         invokeWS(params, email, password);
-        if(loginSuccess) Intents.openDealStack(this);
+        if (loginSuccess) Intents.openDealStack(this);
     }
 
     private void invokeWS(RequestParams params, String email, final String password) {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://10.0.3.2:8080/user/get/"+email,params ,new AsyncHttpResponseHandler() {
+        client.get("http://10.0.3.2:8080/user/get/" + email, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
 
@@ -80,19 +80,19 @@ public class LoginActivity extends Activity {
                     // JSON Object
                     JSONObject obj = new JSONObject(response);
                     // When the JSON response has status boolean value assigned with true
-                    if(obj.getBoolean("exists")==false){
+                    if (obj.getBoolean("exists") == false) {
                         Toast.makeText(getApplicationContext(), "Wrong username", Toast.LENGTH_LONG).show();
-                    }
-                    else if(obj.getString("password").equals(password)){
+                    } else if (obj.getString("password").equals(password)) {
                         Toast.makeText(getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
                         Current.firstName = obj.getString("firstName");
                         Current.lastName = obj.getString("lastName");
                         Current.email = obj.getString("email");
                         Current.phone = obj.getString("phoneNumber");
+                        Current.prefDist = 50;
                         navigatetoDealStackActivity();
                     }
                     // Else display error message
-                    else{
+                    else {
                         Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -102,32 +102,33 @@ public class LoginActivity extends Activity {
 
                 }
             }
+
             @Override
             public void onFailure(int statusCode, Throwable error,
                                   String content) {
 
                 // When Http response code is '404'
-                if(statusCode == 404){
+                if (statusCode == 404) {
                     Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
                 }
                 // When Http response code is '500'
-                else if(statusCode == 500){
+                else if (statusCode == 500) {
                     Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
                 }
                 // When Http response code other than 404, 500
-                else{
+                else {
                     Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    public void navigatetoDealStackActivity(){
-        Intent homeIntent = new Intent(getApplicationContext(),DealStackActivity.class);
+    public void navigatetoDealStackActivity() {
+        Intent homeIntent = new Intent(getApplicationContext(), DealStackActivity.class);
         startActivity(homeIntent);
     }
 
-    public void signup(View view){
+    public void signup(View view) {
         Intents.openSignUpPage(this);
     }
 }

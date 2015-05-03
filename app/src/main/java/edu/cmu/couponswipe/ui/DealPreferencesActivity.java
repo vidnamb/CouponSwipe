@@ -29,7 +29,7 @@ public class DealPreferencesActivity extends Activity {
     ListView dealCategoriesListView;
 
 
-    public void getRadius(){
+    public void getRadius() {
 
 
     }
@@ -59,7 +59,6 @@ public class DealPreferencesActivity extends Activity {
         );
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
 
 
         dealCategoriesListView = (ListView) findViewById(R.id.dealCategoriesListView);

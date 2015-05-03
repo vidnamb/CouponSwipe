@@ -2,12 +2,10 @@ package edu.cmu.couponswipe.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.andtinder.model.CardModel;
@@ -51,86 +48,63 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.dao.DealHistoryDAO;
 import edu.cmu.couponswipe.model.Deal;
 import edu.cmu.couponswipe.model.DealHistory;
 import edu.cmu.couponswipe.sessions.Current;
-import edu.cmu.couponswipe.sessions.SessionManager;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
 public class DealStackActivity extends Activity {
 
     public static final String TAG = DealStackActivity.class.getSimpleName();
 
-    // https://partner-api.groupon.com/deals.json?tsToken=US_AFF_0_203792_212556_0&lat=37.398873&lng=-122.071806&radius=10&offset=0&limit=20
     private static final String apiToken = "US_AFF_0_203792_212556_0";
     private static final int numDeals = 10;
 
-    // Session Manager Class
-    SessionManager session;
 
     // Location
-    private LocationManager locationManager;
-    private String provider;
+    private LocationManager locManager;
 
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 0;                                                            // Meters
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000;
     //Deals
     ArrayList<Deal> deals;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_stack);
 
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener());
 
         ApplicationContextProvider.setDealStackActivityContext(this);
-
-        SeekBar seekBar = (SeekBar) findViewById(R.id.radiusSeekBar);
-
-        seekBar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-                    }
-
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        Current.prefDist = progress;
-                    }
-                }
-        );
-        
-
-
-
 
         int dealRadius = Current.prefDist;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        Location location = getLocation();
 
-        if(location != null) {
+        if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            System.out.println("**********"+latitude);
             getDeals(latitude, longitude, dealRadius);
         } else {
-            System.out.println("**********sdkfjhsd");
-           // getDeals(37.38, -122.08, 100);
             getDeals();
         }
     }
 
     //Set up Cards for Swiping
-    public void buildSwipeCards(ArrayList<Deal> deals)
-    {
+    public void buildSwipeCards(ArrayList<Deal> deals) {
         CardContainer mCardContainer = (CardContainer) findViewById(R.id.layoutview);
         mCardContainer.setOrientation(Orientations.Orientation.Disordered);
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
@@ -139,23 +113,20 @@ public class DealStackActivity extends Activity {
 
         StrictMode.setThreadPolicy(policy);
 
-        for(final Deal deal : deals) {
+        for (int i = 0; i < deals.size(); i++) {
+            final Deal deal = deals.get(i);
             try {
-                CardModel card = new CardModel(deal.getDealTitle(), deal.getDealAmount(), drawableFromUrl(deal.getLargeImageUrl()));
+                CardModel card = new CardModel(deals.get(deals.size() - 1 - i).getDealTitle(), deals.get(deals.size() - 1 - i).getDealAmount(), drawableFromUrl(deals.get(deals.size() - 1 - i).getLargeImageUrl()));
                 adapter.add(card);
 
                 card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
                     @Override
                     public void onLike() {
-                        Log.d("Swipeable Card", "I liked it");
-
                         //Add to db
                         DealHistoryDAO dealHistoryDAO = new DealHistoryDAO(ApplicationContextProvider.getDealStackActivityContext());
                         DealHistory dealHistory = new DealHistory(Current.email, deal.getDealUuid());
                         dealHistoryDAO.addDealHistory(dealHistory);
-
-                        System.out.println("****Liked***");
-                        try{
+                        try {
                             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                             Date date = new Date();
                             System.out.println(dateFormat.format(date));
@@ -180,45 +151,43 @@ public class DealStackActivity extends Activity {
 
 
                             JSONObject obj = new JSONObject();
-                        obj.put("dealAmount",deal.getDealAmount());
-                        obj.put("dealBuyUrl", deal.getDealBuyUrl());
-                        obj.put("dealCategory", deal.getDealCategory());
-                        obj.put("dealCurrency", deal.getDealCurrency());
-                        obj.put("dealDescription", deal.getDealDescription());
-                        obj.put("dealExpiryDate", deal.getDealExpiryDate());
-                        obj.put("dealLatitude", deal.getDealLatitude());
-                        obj.put("dealLocation",deal.getDealLocation());
-                        obj.put("dealLongitude", deal.getDealLongitude());
-                        obj.put("dealStartDate", deal.getDealStartDate());
-                        obj.put("dealTitle", deal.getDealTitle());
-                        obj.put("dealUuid", deal.getDealUuid());
-                        obj.put("largeImageUrl", deal.getLargeImageUrl());
-                        obj.put("mediumImageUrl", deal.getMediumImageUrl());
-                        obj.put("merchantName", deal.getLargeImageUrl());
-                        obj.put("merchantUrl", deal.getMerchantName());
-                        obj.put("merchantUuid", deal.getMerchantUuid());
-                        obj.put("smallImageUrl", deal.getSmallImageUrl());
+                            obj.put("dealAmount", deal.getDealAmount());
+                            obj.put("dealBuyUrl", deal.getDealBuyUrl());
+                            obj.put("dealCategory", deal.getDealCategory());
+                            obj.put("dealCurrency", deal.getDealCurrency());
+                            obj.put("dealDescription", deal.getDealDescription());
+                            obj.put("dealExpiryDate", deal.getDealExpiryDate());
+                            obj.put("dealLatitude", deal.getDealLatitude());
+                            obj.put("dealLocation", deal.getDealLocation());
+                            obj.put("dealLongitude", deal.getDealLongitude());
+                            obj.put("dealStartDate", deal.getDealStartDate());
+                            obj.put("dealTitle", deal.getDealTitle());
+                            obj.put("dealUuid", deal.getDealUuid());
+                            obj.put("largeImageUrl", deal.getLargeImageUrl());
+                            obj.put("mediumImageUrl", deal.getMediumImageUrl());
+                            obj.put("merchantName", deal.getLargeImageUrl());
+                            obj.put("merchantUrl", deal.getMerchantName());
+                            obj.put("merchantUuid", deal.getMerchantUuid());
+                            obj.put("smallImageUrl", deal.getSmallImageUrl());
 
-                        String deal = obj.toString();
-                        DefaultHttpClient httpclient = new DefaultHttpClient();
-                        HttpPost httpost = new HttpPost("http://10.0.3.2:8080/deal/add");
-                        StringEntity se = new StringEntity(deal);
+                            String deal = obj.toString();
+                            DefaultHttpClient httpclient = new DefaultHttpClient();
+                            HttpPost httpost = new HttpPost("http://10.0.3.2:8080/deal/add");
+                            StringEntity se = new StringEntity(deal);
 
-                        httpost.setEntity(se);
-                        httpost.setHeader("Accept", "application/json");
-                        httpost.setHeader("Content-type", "application/json");
+                            httpost.setEntity(se);
+                            httpost.setHeader("Accept", "application/json");
+                            httpost.setHeader("Content-type", "application/json");
 
-                        ResponseHandler responseHandler = new BasicResponseHandler();
-                        String response = (String) httpclient.execute(httpost, responseHandler);
-                        }catch(JSONException e){
+                            ResponseHandler responseHandler = new BasicResponseHandler();
+                            String response = (String) httpclient.execute(httpost, responseHandler);
+                        } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
 
                             e.printStackTrace();
                         } catch (ClientProtocolException e) {
-                            Toast.makeText(getApplicationContext(), "UserName already taken", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         } catch (UnsupportedEncodingException e) {
-
                             e.printStackTrace();
                         } catch (IOException e) {
                             Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
@@ -229,14 +198,9 @@ public class DealStackActivity extends Activity {
 
                     @Override
                     public void onDislike() {
-                        System.out.println("****disLiked***");
-
-                        //Add to db
                         DealHistoryDAO dealHistoryDAO = new DealHistoryDAO(ApplicationContextProvider.getDealStackActivityContext());
                         DealHistory dealHistory = new DealHistory(Current.email, deal.getDealUuid());
                         dealHistoryDAO.addDealHistory(dealHistory);
-
-                        Log.d("Swipeable Card", "I did not liked it");
                     }
                 });
 
@@ -248,8 +212,7 @@ public class DealStackActivity extends Activity {
         mCardContainer.setAdapter(adapter);
     }
 
-    public void openDeal()
-    {
+    public void openDeal() {
         Intents.openDeal(this);
     }
 
@@ -262,11 +225,6 @@ public class DealStackActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
         switch (item.getItemId()) {
             case R.id.action_user_profile:
                 openUserProfile();
@@ -281,39 +239,26 @@ public class DealStackActivity extends Activity {
         }
     }
 
-    public void openUserProfile()
-    {
+    public void openUserProfile() {
         Intents.openUserProfile(this);
     }
 
-    public void openShortlist()
-    {
+    public void openShortlist() {
         Intents.openShortList(this);
     }
 
-    public void openPreferences(View view){
+    public void openPreferences(View view) {
 
         Intents.openDealPreferences(this);
     }
 
-    private void navigateToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
 
     public void getDeals() {
-        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
+        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken + "&offset=0&limit=" + numDeals;
 
         callDealAPI(dealUrl);
     }
 
-    public void getDeals(String dealCategories) {
-        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
-
-        callDealAPI(dealUrl);
-    }
 
     public void getDeals(double latitude, double longitude, int dealRadius) {
         String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken + "&lat=" + latitude + "&lng=" + longitude
@@ -323,13 +268,6 @@ public class DealStackActivity extends Activity {
 
     }
 
-    public void getDeals(double latitude, double longitude, int dealRadius, String dealCategories) {
-        String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken + "&lat=" + latitude + "&lng=" + longitude
-                + "&radius=" + dealRadius + "&offset=0&limit=" + numDeals;
-
-        callDealAPI(dealUrl);
-
-    }
 
     private void callDealAPI(String url) {
 
@@ -370,8 +308,7 @@ public class DealStackActivity extends Activity {
                     }
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(this, getString(R.string.network_unavailable_message),
                     Toast.LENGTH_LONG).show();
         }
@@ -395,7 +332,6 @@ public class DealStackActivity extends Activity {
 
                 deal.setDealStartDate(jsonDeal.getString("startAt"));
                 deal.setDealExpiryDate(jsonDeal.getString("endAt"));
-//              deal.setDealCategory(jsonDeal.getString(""));
                 deal.setSmallImageUrl(jsonDeal.getString("smallImageUrl"));
                 deal.setMediumImageUrl(jsonDeal.getString("mediumImageUrl"));
                 deal.setLargeImageUrl(jsonDeal.getString("largeImageUrl"));
@@ -424,7 +360,6 @@ public class DealStackActivity extends Activity {
 
             } catch (Exception e) {
                 Log.e(TAG, "Exception caught: ", e);
-                e.printStackTrace();
             }
 
         }
@@ -445,15 +380,6 @@ public class DealStackActivity extends Activity {
         return isAvailable;
     }
 
-    protected Location getLocation() {
-        // Get the location manager
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        Location location = locationManager.getLastKnownLocation(provider);
-
-        return location;
-    }
 
     public Drawable drawableFromUrl(String url) throws IOException {
         Bitmap x;
@@ -466,13 +392,13 @@ public class DealStackActivity extends Activity {
         return scaleImage(new BitmapDrawable(x), 1);
     }
 
-    public Drawable scaleImage (Drawable image, float scaleFactor) {
+    public Drawable scaleImage(Drawable image, float scaleFactor) {
 
         if ((image == null) || !(image instanceof BitmapDrawable)) {
             return image;
         }
 
-        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap b = ((BitmapDrawable) image).getBitmap();
 
         int sizeX = Math.round(image.getIntrinsicWidth() * scaleFactor);
         int sizeY = Math.round(image.getIntrinsicHeight() * scaleFactor);
@@ -483,6 +409,27 @@ public class DealStackActivity extends Activity {
 
         return image;
 
+    }
+
+    private class MyLocationListener implements LocationListener {
+        @Override
+        public void onLocationChanged(Location location) {
+            String message = String.format(
+                    "Update Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude());
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle b) {
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+        }
     }
 
 }

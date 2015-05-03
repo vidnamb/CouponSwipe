@@ -2,7 +2,6 @@ package edu.cmu.couponswipe.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -11,32 +10,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import org.apache.http.HeaderElement;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 import edu.cmu.couponswipe.R;
@@ -66,11 +49,11 @@ public class SignUpActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.hide();
 
-        firstNameET = (EditText)findViewById(R.id.firstNameEditText);
-        lastNameET = (EditText)findViewById(R.id.lastNameEditText);
-        emailET = (EditText)findViewById(R.id.userEmailEditText);
-        phoneNumberET = (EditText)findViewById(R.id.userPhoneEditText);
-        passwordET = (EditText)findViewById(R.id.userPasswordEditText);
+        firstNameET = (EditText) findViewById(R.id.firstNameEditText);
+        lastNameET = (EditText) findViewById(R.id.lastNameEditText);
+        emailET = (EditText) findViewById(R.id.userEmailEditText);
+        phoneNumberET = (EditText) findViewById(R.id.userPhoneEditText);
+        passwordET = (EditText) findViewById(R.id.userPasswordEditText);
 
     }
 
@@ -97,7 +80,7 @@ public class SignUpActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signup(View view){
+    public void signup(View view) {
 
         fName = firstNameET.getText().toString();
         lName = lastNameET.getText().toString();
@@ -108,57 +91,57 @@ public class SignUpActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
-        try{
-            obj.put("email",email);
-            obj.put("firstName", fName);
-            obj.put("lastName", lName);
-            obj.put("password", password);
-            obj.put("phoneNumber", phone);
-            obj.put("prefCategories", "");
-            obj.put("prefDistance", 10);
 
-            String user = obj.toString();
-            DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost("http://10.0.3.2:8080/user/signup");
-            StringEntity se = new StringEntity(user);
+        if (fName == null || fName.length() == 0 || lName == null || lName.length() == 0 || email == null || email.length() == 0 || phone == null || phone.length() == 0 || password == null || password.length() == 0) {
+            Toast.makeText(getApplicationContext(), "Invalid entries. Try again", Toast.LENGTH_LONG).show();
+        } else {
+            try {
+                obj.put("email", email);
+                obj.put("firstName", fName);
+                obj.put("lastName", lName);
+                obj.put("password", password);
+                obj.put("phoneNumber", phone);
+                obj.put("prefCategories", "");
+                obj.put("prefDistance", 10);
 
-            httpost.setEntity(se);
-            httpost.setHeader("Accept", "application/json");
-            httpost.setHeader("Content-type", "application/json");
+                String user = obj.toString();
+                DefaultHttpClient httpclient = new DefaultHttpClient();
+                HttpPost httpost = new HttpPost("http://10.0.3.2:8080/user/signup");
+                StringEntity se = new StringEntity(user);
 
-            ResponseHandler responseHandler = new BasicResponseHandler();
-            String response = (String) httpclient.execute(httpost, responseHandler);
-            Current.firstName = obj.getString("firstName");
-            Current.lastName = obj.getString("lastName");
-            Current.email = obj.getString("email");
-            Current.phone = obj.getString("phoneNumber");
-            Intents.openDealStack(this);
-        }catch(JSONException e){
-            Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
+                httpost.setEntity(se);
+                httpost.setHeader("Accept", "application/json");
+                httpost.setHeader("Content-type", "application/json");
 
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            Toast.makeText(getApplicationContext(), "UserName already taken", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("#######");
+                ResponseHandler responseHandler = new BasicResponseHandler();
+                String response = (String) httpclient.execute(httpost, responseHandler);
+                Current.firstName = obj.getString("firstName");
+                Current.lastName = obj.getString("lastName");
+                Current.email = obj.getString("email");
+                Current.phone = obj.getString("phoneNumber");
+                Current.prefDist = 50;
+                Intents.openDealStack(this);
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
 
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("%%%%%");
-            Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                Toast.makeText(getApplicationContext(), "UserName already taken", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
 
-            e.printStackTrace();
+                e.printStackTrace();
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
+
+                e.printStackTrace();
+            }
         }
     }
 
     public void cancel(View view) {
         Intents.openLoginPage(this);
     }
-
-
-
-
 
 
 }

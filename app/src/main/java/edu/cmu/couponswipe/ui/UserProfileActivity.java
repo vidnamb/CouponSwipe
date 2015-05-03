@@ -1,7 +1,6 @@
 package edu.cmu.couponswipe.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,7 @@ public class UserProfileActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-         firstNameTV = (TextView) findViewById(R.id.first_name);
+        firstNameTV = (TextView) findViewById(R.id.first_name);
         lastNameTV = (TextView) findViewById(R.id.last_name);
         phoneTV = (TextView) findViewById(R.id.user_phone);
         emailTV = (TextView) findViewById(R.id.user_signup_email);
@@ -60,11 +59,11 @@ public class UserProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void editProfile(View view){
+    public void editProfile(View view) {
         Intents.openEditProfile(this);
     }
 
-    public void logout(View view){
+    public void logout(View view) {
         Current.logout();
         Intents.openLoginPage(this);
     }

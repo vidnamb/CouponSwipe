@@ -1,7 +1,6 @@
 package edu.cmu.couponswipe.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -47,10 +46,10 @@ public class EditProfileActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        firstNameET = (EditText)findViewById(R.id.first_name);
-        lastNameET = (EditText)findViewById(R.id.last_name);
-        emailTV = (TextView)findViewById(R.id.user_signup_email);
-        phoneNumberET = (EditText)findViewById(R.id.user_phone);
+        firstNameET = (EditText) findViewById(R.id.first_name);
+        lastNameET = (EditText) findViewById(R.id.last_name);
+        emailTV = (TextView) findViewById(R.id.user_signup_email);
+        phoneNumberET = (EditText) findViewById(R.id.user_phone);
 
         firstNameET.setText(Current.firstName);
         lastNameET.setText(Current.lastName);
@@ -81,7 +80,7 @@ public class EditProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void update(View view){
+    public void update(View view) {
         fName = firstNameET.getText().toString();
         lName = lastNameET.getText().toString();
         email = emailTV.getText().toString();
@@ -90,44 +89,47 @@ public class EditProfileActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
-
-        try{
-            obj.put("email",email);
-            obj.put("firstName", fName);
-            obj.put("lastName", lName);
-            obj.put("phoneNumber", phone);
-
-            String user = obj.toString();
-            DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost("http://10.0.3.2:8080/user/update");
-            StringEntity se = new StringEntity(user);
-
-            httpost.setEntity(se);
-            httpost.setHeader("Accept", "application/json");
-            httpost.setHeader("Content-type", "application/json");
-
-            ResponseHandler responseHandler = new BasicResponseHandler();
-            String response = (String) httpclient.execute(httpost, responseHandler);
-            Current.firstName = fName;
-            Current.lastName = lName;
-            Current.phone = phone;
-            Intents.openDealStack(this);
-        }catch(JSONException e){
-            Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
-
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
+        if (fName == null || fName.length() == 0 || lName == null || lName.length() == 0 || email == null || email.length() == 0 || phone == null || phone.length() == 0) {
             Toast.makeText(getApplicationContext(), "Invalid entries. Try again", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("#######");
+        } else {
+            try {
+                obj.put("email", email);
+                obj.put("firstName", fName);
+                obj.put("lastName", lName);
+                obj.put("phoneNumber", phone);
 
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("%%%%%");
-            Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
+                String user = obj.toString();
+                DefaultHttpClient httpclient = new DefaultHttpClient();
+                HttpPost httpost = new HttpPost("http://10.0.3.2:8080/user/update");
+                StringEntity se = new StringEntity(user);
 
-            e.printStackTrace();
+                httpost.setEntity(se);
+                httpost.setHeader("Accept", "application/json");
+                httpost.setHeader("Content-type", "application/json");
+
+                ResponseHandler responseHandler = new BasicResponseHandler();
+                String response = (String) httpclient.execute(httpost, responseHandler);
+                Current.firstName = fName;
+                Current.lastName = lName;
+                Current.phone = phone;
+                Intents.openDealStack(this);
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "JSON", Toast.LENGTH_LONG).show();
+
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                Toast.makeText(getApplicationContext(), "Invalid entries. Try again", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println("#######");
+
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("%%%%%");
+                Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
+
+                e.printStackTrace();
+            }
         }
         //Intents.openUserProfile(this);
     }

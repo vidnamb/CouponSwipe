@@ -25,6 +25,7 @@ public class ApplicationContextProvider extends Application {
 
     /**
      * Returns the application context
+     *
      * @return application context
      */
     public static Context getAppContext() {
