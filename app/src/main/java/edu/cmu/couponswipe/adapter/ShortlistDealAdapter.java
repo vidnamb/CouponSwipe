@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,8 @@ import java.net.URLConnection;
 
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.model.Deal;
+import edu.cmu.couponswipe.ui.DealShortlistActivity;
+import edu.cmu.couponswipe.ui.ViewDealActivity;
 import edu.cmu.couponswipe.ui.ApplicationContextProvider;
 import edu.cmu.couponswipe.ui.ViewDealActivity;
 
@@ -95,15 +98,6 @@ public class ShortlistDealAdapter extends BaseAdapter{
         holder.deleteDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                String id = deal.getDealUuid();
-
-
-            }
-        });
-
-        holder.buyDealButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url("http://10.0.3.2:8080/history/delete/"+ deal.getDealUuid() +"/xyz@a.com")
@@ -122,8 +116,21 @@ public class ShortlistDealAdapter extends BaseAdapter{
                     @Override
                     public void onResponse(Response response) throws IOException {
                         System.out.println("*********** deleted");
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+                        StrictMode.setThreadPolicy(policy);
+                        Intent intentToViewShortlistDeal = new Intent(ApplicationContextProvider.getDealShortlistActivityContext(), DealShortlistActivity.class);
+                        ApplicationContextProvider.getDealShortlistActivityContext().startActivity(intentToViewShortlistDeal);
                     }
                 });
+
+
+            }
+        });
+
+        holder.buyDealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
 
                     }
         });
