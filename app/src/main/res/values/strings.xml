@@ -4,7 +4,7 @@
     <string name="app_name">Coupon Swipe</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login">Coupon Swipe</string>
     <string name="title_activity_user_profile">Profile</string>
     <string name="title_activity_deal_shortlist">Deal Shortlist</string>
     <string name="title_activity_sign_up">Sign Up</string>
