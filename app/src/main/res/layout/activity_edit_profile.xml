@@ -68,18 +68,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Name"
+            android:text="Email"
             android:id="@+id/textView8"
             android:textSize="18dp" />
 
-        <EditText
-            android:id="@+id/user_signup_email"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_email"
-            android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
-            android:layout_marginLeft="15dp"></EditText>
+            android:text="Email"
+            android:id="@+id/user_signup_email"
+            android:layout_marginLeft="15dp"
+            android:textSize="18dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -91,7 +90,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Name"
+            android:text="Phone"
             android:id="@+id/textView9"
             android:textSize="18dp" />
 

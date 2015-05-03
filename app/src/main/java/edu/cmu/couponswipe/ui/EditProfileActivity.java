@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.client.ClientProtocolException;
@@ -31,7 +32,7 @@ public class EditProfileActivity extends Activity {
 
     EditText firstNameET;
     EditText lastNameET;
-    EditText emailET;
+    TextView emailTV;
     EditText phoneNumberET;
 
     String fName;
@@ -48,12 +49,12 @@ public class EditProfileActivity extends Activity {
 
         firstNameET = (EditText)findViewById(R.id.first_name);
         lastNameET = (EditText)findViewById(R.id.last_name);
-        emailET = (EditText)findViewById(R.id.user_signup_email);
+        emailTV = (TextView)findViewById(R.id.user_signup_email);
         phoneNumberET = (EditText)findViewById(R.id.user_phone);
 
         firstNameET.setText(Current.firstName);
         lastNameET.setText(Current.lastName);
-        emailET.setText(Current.email);
+        emailTV.setText(Current.email);
         phoneNumberET.setText(Current.phone);
     }
 
@@ -83,7 +84,7 @@ public class EditProfileActivity extends Activity {
     public void update(View view){
         fName = firstNameET.getText().toString();
         lName = lastNameET.getText().toString();
-        email = emailET.getText().toString();
+        email = emailTV.getText().toString();
         phone = phoneNumberET.getText().toString();
         JSONObject obj = new JSONObject();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
