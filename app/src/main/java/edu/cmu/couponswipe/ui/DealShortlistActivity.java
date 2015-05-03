@@ -104,6 +104,9 @@ public class DealShortlistActivity extends ListActivity {
                     try {
 
                         String jsonData = response.body().string();
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+                        StrictMode.setThreadPolicy(policy);
                         if (response.isSuccessful()) {
                             try {
                                 JSONObject obj = new JSONObject(jsonData);
@@ -120,6 +123,7 @@ public class DealShortlistActivity extends ListActivity {
                                     d.setMediumImageUrl(deal.getString("dealMediumUrl"));
                                     shortlistedDealsList.add(d);
                                 }
+
                                 Deal[] shortlistedDeals = shortlistedDealsList.toArray(new Deal[shortlistedDealsList.size()]);
 
                                 ShortlistDealAdapter adapter = new ShortlistDealAdapter(getApplicationContext(), shortlistedDeals);

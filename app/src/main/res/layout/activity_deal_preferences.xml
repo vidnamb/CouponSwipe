@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/radiusSeekBar"
         android:layout_gravity="center_horizontal"
+        android:onClick="getRadius"
         android:max="@integer/max_radius" />
 
     <ListView
