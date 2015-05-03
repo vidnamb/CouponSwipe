@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.andtinder.model.CardModel;
@@ -85,6 +86,25 @@ public class DealStackActivity extends Activity {
 
         ApplicationContextProvider.setDealStackActivityContext(this);
 
+        SeekBar seekBar = (SeekBar) findViewById(R.id.radiusSeekBar);
+
+        seekBar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        Current.prefDist = progress;
+                    }
+                }
+        );
+        
         // Session class instance
         session = new SessionManager(getApplicationContext());
         // Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
@@ -104,7 +124,7 @@ public class DealStackActivity extends Activity {
         String dealCategories = user.get(SessionManager.KEY_DEAL_CATEGORIES);
 
 
-        int dealRadius = Current.prefDist;
+        dealRadius = Current.prefDist;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
