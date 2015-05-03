@@ -2,10 +2,8 @@ package edu.cmu.couponswipe.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.util.Log;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +18,13 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.model.Deal;
 import edu.cmu.couponswipe.ui.ApplicationContextProvider;
-import edu.cmu.couponswipe.ui.ViewDealActivity;
+import edu.cmu.couponswipe.ui.DealShortlistActivity;
 
 /**
  * Created by lloyddsilva on 4/4/15.
@@ -85,7 +80,6 @@ public class ShortlistDealAdapter extends BaseAdapter{
         holder.viewDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                System.out.println("********"+deal.getDealTitle());
 
 //                Intent intentToViewDeal = new Intent(ApplicationContextProvider.getDealShortlistActivityContext(), ViewDealActivity.class);
 //                ApplicationContextProvider.getDealShortlistActivityContext().startActivity(intentToViewDeal);
@@ -93,15 +87,6 @@ public class ShortlistDealAdapter extends BaseAdapter{
         });
 
         holder.deleteDealButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                String id = deal.getDealUuid();
-
-
-            }
-        });
-
-        holder.buyDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 OkHttpClient client = new OkHttpClient();
@@ -115,15 +100,26 @@ public class ShortlistDealAdapter extends BaseAdapter{
                     public void onFailure(Request request, IOException e) {
                         //handle failure
                         e.printStackTrace();
-                        System.out.println("************** fail");
 
                     }
 
                     @Override
                     public void onResponse(Response response) throws IOException {
-                        System.out.println("*********** deleted");
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+                        StrictMode.setThreadPolicy(policy);
+                        Intent intentToViewShortlistDeal = new Intent(ApplicationContextProvider.getDealShortlistActivityContext(), DealShortlistActivity.class);
+                        ApplicationContextProvider.getDealShortlistActivityContext().startActivity(intentToViewShortlistDeal);
                     }
                 });
+
+
+            }
+        });
+
+        holder.buyDealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
 
                     }
         });

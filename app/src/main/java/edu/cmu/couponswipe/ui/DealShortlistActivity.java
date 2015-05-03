@@ -128,7 +128,6 @@ public class DealShortlistActivity extends ListActivity {
                                 setListAdapter(adapter);
                             } catch (JSONException e) {
                                 // TODO Auto-generated catch block
-                                //  Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
 
                             }
