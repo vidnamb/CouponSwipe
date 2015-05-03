@@ -82,6 +82,7 @@ public class DealStackActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_stack);
 
+
         ApplicationContextProvider.setDealStackActivityContext(this);
 
         // Session class instance
@@ -102,6 +103,8 @@ public class DealStackActivity extends Activity {
         int dealRadius = Integer.parseInt(user.get(SessionManager.KEY_RADIUS));
         String dealCategories = user.get(SessionManager.KEY_DEAL_CATEGORIES);
 
+
+        int dealRadius = Current.prefDist;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -206,11 +209,9 @@ public class DealStackActivity extends Activity {
                             Toast.makeText(getApplicationContext(), "UserName already taken", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         } catch (UnsupportedEncodingException e) {
-                            System.out.println("#######");
 
                             e.printStackTrace();
                         } catch (IOException e) {
-                            System.out.println("%%%%%");
                             Toast.makeText(getApplicationContext(), "Problem with the connection the server", Toast.LENGTH_LONG).show();
 
                             e.printStackTrace();
@@ -295,7 +296,6 @@ public class DealStackActivity extends Activity {
 
     public void getDeals() {
         String dealUrl = "https://partner-api.groupon.com/deals.json?tsToken=" + apiToken +  "&offset=0&limit=" + numDeals;
-        System.out.println("************** getdeals");
 
         callDealAPI(dealUrl);
     }
@@ -325,8 +325,6 @@ public class DealStackActivity extends Activity {
     private void callDealAPI(String url) {
 
         if (isNetworkAvailable()) {
-            System.out.println("**************  network");
-
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
@@ -365,8 +363,6 @@ public class DealStackActivity extends Activity {
             });
         }
         else {
-            System.out.println("************** No network");
-
             Toast.makeText(this, getString(R.string.network_unavailable_message),
                     Toast.LENGTH_LONG).show();
         }
@@ -401,10 +397,7 @@ public class DealStackActivity extends Activity {
                 deal.setMerchantName(merchantData.getString("name"));
                 deal.setMerchantUrl(merchantData.getString("websiteUrl"));
 
-                //Deal Details URL
-                //deal.setDealBuyUrl(jsonDeal.getString("dealUrl"));
 
-                //Location, Price, Deal Buy URL
                 JSONArray optionsData = jsonDeal.getJSONArray("options");
                 deal.setDealBuyUrl(optionsData.getJSONObject(0).getString("buyUrl"));
 

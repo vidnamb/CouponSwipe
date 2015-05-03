@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.adapter.ShortlistDealAdapter;
 import edu.cmu.couponswipe.model.Deal;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.intents.Intents;
 
 public class DealShortlistActivity extends ListActivity {
@@ -76,15 +77,12 @@ public class DealShortlistActivity extends ListActivity {
     }
 
     public void getDeals() {
-        String dealUrl = "http://10.0.3.2:8080/history/get/xyz@a.com";
+        String dealUrl = "http://10.0.3.2:8080/history/get/"+ Current.email;
 
         callDealAPI(dealUrl);
     }
 
     private void callDealAPI(String url) {
-
-
-            System.out.println("**************  network");
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -97,7 +95,6 @@ public class DealShortlistActivity extends ListActivity {
                 public void onFailure(Request request, IOException e) {
                     //handle failure
                     e.printStackTrace();
-                    System.out.println("************** fail");
 
                 }
 
@@ -105,7 +102,6 @@ public class DealShortlistActivity extends ListActivity {
                 public void onResponse(Response response) throws IOException {
 
                     try {
-                        System.out.println("************** succ");
 
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
@@ -135,8 +131,6 @@ public class DealShortlistActivity extends ListActivity {
                             }
 
                         } else {
-                            //handle non ok response
-                            System.out.println("************** non ok");
 
                         }
                     } catch (IOException e) {

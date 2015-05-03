@@ -24,6 +24,7 @@ import java.net.URL;
 
 import edu.cmu.couponswipe.R;
 import edu.cmu.couponswipe.model.Deal;
+import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.ui.ApplicationContextProvider;
 import edu.cmu.couponswipe.ui.DealShortlistActivity;
 import edu.cmu.couponswipe.ui.ViewDealActivity;
@@ -99,7 +100,7 @@ public class ShortlistDealAdapter extends BaseAdapter{
             public void onClick(View arg0) {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
-                        .url("http://10.0.3.2:8080/history/delete/"+ deal.getDealUuid() +"/xyz@a.com")
+                        .url("http://10.0.3.2:8080/history/delete/" + deal.getDealUuid() + "/" + Current.email)
                         .build();
 
                 Call call = client.newCall(request);
