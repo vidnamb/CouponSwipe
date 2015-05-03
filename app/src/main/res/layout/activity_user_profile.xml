@@ -10,22 +10,18 @@
     tools:context="edu.cmu.couponswipe.ui.UserProfileActivity">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/editProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit_profile_button"
-            android:onClick="editProfile"></Button>
-
+            android:onClick="editProfile"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"></Button>
 
         <TextView
             android:id="@+id/profile"
@@ -37,7 +33,9 @@
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:text="@string/user_details"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:layout_alignBottom="@+id/logout_Button_profile"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/logout_Button_profile"
@@ -45,45 +43,100 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/logout_button"
-            android:onClick="logout"></Button>
+            android:onClick="logout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"></Button>
 
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_first_name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_marginLeft="15dp"></TextView>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/first_name"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/enter_first_name"
-        android:imeOptions="actionNext"
-        android:inputType="text"></TextView>
+        android:layout_marginTop="20dp">
 
-    <TextView
-        android:id="@+id/last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/enter_last_name"
-        android:imeOptions="actionNext"
-        android:inputType="text"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:id="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/user_signup_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/enter_email"
-        android:imeOptions="actionNext"
-        android:inputType="textEmailAddress"></TextView>
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_last_name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_marginLeft="15dp"></TextView>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/user_phone"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/enter_phone"
-        android:imeOptions="actionNext"
-        android:inputType="number"></TextView>
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:id="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/user_signup_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:layout_marginLeft="15dp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_phone"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:layout_marginLeft="15dp"></TextView>
+
+    </LinearLayout>
 
 
 </LinearLayout>
