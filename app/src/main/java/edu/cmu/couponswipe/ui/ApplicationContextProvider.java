@@ -13,15 +13,9 @@ public class ApplicationContextProvider extends Application {
      */
     private static Context appContext;
 
-    public static Context getDealShortlistActivityContext() {
-        return dealShortlistActivityContext;
-    }
-
-    public static void setDealShortlistActivityContext(Context mainActivityContext) {
-        ApplicationContextProvider.dealShortlistActivityContext = mainActivityContext;
-    }
-
     private static Context dealShortlistActivityContext;
+
+    private static Context dealStackActivityContext;
 
     @Override
     public void onCreate() {
@@ -37,6 +31,19 @@ public class ApplicationContextProvider extends Application {
         return appContext;
     }
 
+    public static Context getDealShortlistActivityContext() {
+        return dealShortlistActivityContext;
+    }
 
+    public static void setDealShortlistActivityContext(Context dealShortlistActivityContext) {
+        ApplicationContextProvider.dealShortlistActivityContext = dealShortlistActivityContext;
+    }
 
+    public static Context getDealStackActivityContext() {
+        return dealStackActivityContext;
+    }
+
+    public static void setDealStackActivityContext(Context dealStackActivityContext) {
+        ApplicationContextProvider.dealStackActivityContext = dealStackActivityContext;
+    }
 }

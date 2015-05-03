@@ -52,7 +52,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import edu.cmu.couponswipe.R;
+import edu.cmu.couponswipe.dao.DealHistoryDAO;
 import edu.cmu.couponswipe.model.Deal;
+import edu.cmu.couponswipe.model.DealHistory;
 import edu.cmu.couponswipe.sessions.Current;
 import edu.cmu.couponswipe.sessions.SessionManager;
 import edu.cmu.couponswipe.ui.intents.Intents;
@@ -79,6 +81,8 @@ public class DealStackActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_stack);
+
+        ApplicationContextProvider.setDealStackActivityContext(this);
 
         // Session class instance
         session = new SessionManager(getApplicationContext());
@@ -132,6 +136,12 @@ public class DealStackActivity extends Activity {
                     @Override
                     public void onLike() {
                         Log.d("Swipeable Card", "I liked it");
+
+                        //Add to db
+                        DealHistoryDAO dealHistoryDAO = new DealHistoryDAO(ApplicationContextProvider.getDealStackActivityContext());
+                        DealHistory dealHistory = new DealHistory(Current.email, deal.getDealUuid());
+                        dealHistoryDAO.addDealHistory(dealHistory);
+
                         System.out.println("****Liked***");
                         try{
                             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -210,6 +220,11 @@ public class DealStackActivity extends Activity {
                     @Override
                     public void onDislike() {
                         System.out.println("****disLiked***");
+
+                        //Add to db
+                        DealHistoryDAO dealHistoryDAO = new DealHistoryDAO(ApplicationContextProvider.getDealStackActivityContext());
+                        DealHistory dealHistory = new DealHistory(Current.email, deal.getDealUuid());
+                        dealHistoryDAO.addDealHistory(dealHistory);
 
                         Log.d("Swipeable Card", "I did not liked it");
                     }
