@@ -67,7 +67,7 @@ public class LoginActivity extends Activity {
         String password = pwdET.getText().toString();
         RequestParams params = new RequestParams();
         invokeWS(params, email, password);
-        if(loginSuccess) Intents.openDealPreferences(this);
+        if(loginSuccess) Intents.openDealStack(this);
     }
 
     private void invokeWS(RequestParams params, String email, final String password) {
@@ -89,7 +89,7 @@ public class LoginActivity extends Activity {
                         Current.lastName = obj.getString("lastName");
                         Current.email = obj.getString("email");
                         Current.phone = obj.getString("phoneNumber");
-                        navigatetoDealPreferences();
+                        navigatetoDealStackActivity();
                     }
                     // Else display error message
                     else{
@@ -122,8 +122,9 @@ public class LoginActivity extends Activity {
         });
     }
 
-    public void navigatetoDealPreferences(){
-        Intents.openDealPreferences(this);
+    public void navigatetoDealStackActivity(){
+        Intent homeIntent = new Intent(getApplicationContext(),DealStackActivity.class);
+        startActivity(homeIntent);
     }
 
     public void signup(View view){

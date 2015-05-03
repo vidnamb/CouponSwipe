@@ -50,7 +50,7 @@ public class DealPreferencesActivity extends Activity {
                     }
                 }
         );
-        
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         dealCategoriesListView = (ListView) findViewById(R.id.dealCategoriesListView);
